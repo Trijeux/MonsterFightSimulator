@@ -1,6 +1,5 @@
 #pragma once
 #include <string>
-#include <vector>
 
 enum Race
 {
@@ -13,16 +12,24 @@ class Monster
 {
 public:
 	//Constructor
-	Monster(int _healthPoints, int _attackDamage, int _defensePoints, int _speed, Race _nameRace);
+	Monster(int _healthPoints, int _attackDamage, int _defensePoints, int _speed, Race _monsterRace);
+	~Monster();
+
+	//Metode
+	void StateMonster();
+
+private:
 
 	//Propryety
 	int HP;
 	int AD;
 	int DP;
 	int S;
-	Race NameRace;
+	Race monsterRace;
 
 	//Metode
-	void Test();
+	std::string nameMonster(Race NameRace);
+
+	
 };
 
