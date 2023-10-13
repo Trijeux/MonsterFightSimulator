@@ -1,24 +1,23 @@
 #include "ClasseMonster.h"
-#include "ClassePlayer.h"
 #include <iostream>
 
 Monster::Monster(int _healthPoints, int _attackDamage, int _defensePoints, int _speed, Race _monsterRace) : HP(_healthPoints), AD(_attackDamage), DP(_defensePoints), S(_speed), monsterRace(_monsterRace) {};
- 
+
 Monster::~Monster()
 {
 	std::cout << "Le monster est detruite" << std::endl;
 }
 
 
-void Monster::StateMonster()
+void Monster::State()
 {
-	std::string monsterName = nameMonster(monsterRace);
-	std::cout << "Vie : " << HP << " Attack : " << AD << " Defense : " << DP << " speed : " << S << " NameRace : " << monsterName << std::endl;
+	std::string monsterName = nameMonster();
+	std::cout << "Nom :" << monsterName << " / Attack :" << AD << " / Defense :" << DP << " / speed :" << S << " / Vie :" << HP << std::endl;
 }
 
-std::string Monster::nameMonster(Race nameRace)
+std::string Monster::nameMonster()
 {
-	switch (nameRace) {
+	switch (this->monsterRace) {
 	case Orc:
 		return "Orc";
 	case Troll:
@@ -29,3 +28,28 @@ std::string Monster::nameMonster(Race nameRace)
 		return "Invalid";
 	}
 }
+
+void Monster::takeDomage(int domage)
+{
+	HP -= domage;
+}
+
+void Monster::Attack(Monster& enemy)
+{
+	if (AD > enemy.DP)
+	{
+		int domage;
+		domage = AD - enemy.DP;
+		/*std::cout << nameMonster() << AD << " " << enemy.nameMonster() << enemy.DP << std::endl;*/
+		enemy.takeDomage(domage);
+	}
+	else
+	{
+		std::cout << "Seulement ? Tu es faible" << std::endl;
+	}
+}
+
+void Monster::Pary()
+{
+	DP += 10;
+};

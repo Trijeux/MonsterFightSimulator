@@ -16,7 +16,16 @@ public:
 	~Monster();
 
 	//Metode
-	void StateMonster();
+	void State();
+	void Choix();
+	void Attack(Monster& enemy);
+	void Pary();
+	void DeadOrNot();
+
+	/*int getHP() { return HP; };
+	int getAD() { return AD; };
+	int getDP() { return DP; };
+	int getS() { return S; };*/
 
 private:
 
@@ -28,8 +37,12 @@ private:
 	Race monsterRace;
 
 	//Metode
-	std::string nameMonster(Race NameRace);
+	std::string nameMonster();
+	void takeDomage(int domage);
+	void giveHP();
 
-	
+
+
+
 };
 

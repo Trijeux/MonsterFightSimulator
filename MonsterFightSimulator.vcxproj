@@ -128,12 +128,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ClasseMonster.cpp" />
-    <ClCompile Include="ClassePlayer.cpp" />
     <ClCompile Include="MonsterFightSimulator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ClasseMonster.h" />
-    <ClInclude Include="ClassePlayer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
