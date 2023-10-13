@@ -67,18 +67,17 @@ void Monster::EndOfRound()
 
 void Monster::EndGameMessage()
 {
-	//See if monster 1 is dead
+	//See if monster is dead
 	if (HP <= 0)
 	{
 		ShowMessageMonster(nameMonster());
-		std::cout << " est mort! Vous avez perdu" << std::endl;
+		std::cout << " a perdu" << std::endl;
 	}
-	//See if monster 2 is dead
+	//See if monster is alive
 	if (HP > 0)
 	{
-
 		ShowMessageMonster(nameMonster());
-		std::cout << " a survecu! Vous avez gagne" << std::endl;
+		std::cout << " a gagne" << std::endl;
 	}
 }
 
@@ -88,6 +87,7 @@ bool Monster::DeadOrNot()
 	{
 		return false;
 	}
+	
 	return true;
 }
 #pragma endregion
@@ -144,11 +144,10 @@ void Monster::giveHP()
 			HP = HPMax;
 		}
 		ShowMessageMonster(nameMonster());
-		std::cout << "Ca fait du bien" << std::endl;
+		std::cout << ": ca fait du bien" << std::endl;
 	}
 	else
 	{
-		ShowMessageMonster(nameMonster());
 		std::cout << "HP deja au Max" << std::endl;
 	}
 }
@@ -187,7 +186,7 @@ void Monster::Attack(Monster& enemy)
 	if (echec == 0)
 	{
 		ShowMessageMonster(enemy.nameMonster());
-		std::cout << ": Seulement ? Tu es faible" << std::endl;
+		std::cout << ": seulement ? Tu es faible" << std::endl;
 	}
 }
 
@@ -213,7 +212,7 @@ void Monster::Pary()
 
 	DPTemp += paryPoint;
 	ShowMessageMonster(nameMonster());
-	std::cout << "Essaie de me toucher si tu peux" << std::endl;
+	std::cout << ": essaie de me toucher si tu peux" << std::endl;
 }
 
 void Monster::AutoHeal()

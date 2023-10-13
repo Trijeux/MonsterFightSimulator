@@ -88,6 +88,7 @@ int ChoiseRaceMonster2()
 			{
 				clsExecuted = true;
 			}
+			std::cout << std::endl;
 			std::cout << "Et ton adversaire :" << std::endl;
 			std::cout << "Orc (" << Orc << ")" << std::endl;
 			std::cout << "Troll (" << Troll << ")" << std::endl;
@@ -147,11 +148,18 @@ int RandomStateS()
 	return nbrand(e2);
 }
 
-void Round()
+void Round(bool startBattle)
 {
-	int nbRound = 0;
-	nbRound += 1;
-	std::cout << "Round : " << nbRound << std::endl;
+	static int nbRound;
+	if (startBattle)
+	{
+		nbRound = 0;
+	}
+	else
+	{
+		nbRound += 1;
+		std::cout << "Round : " << nbRound << std::endl;
+	}
 }
 
 void ShowMessage(std::string message, int color)

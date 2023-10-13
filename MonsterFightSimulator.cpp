@@ -1,7 +1,6 @@
 #include <iostream>
 #include <random>
 #include <windows.h>
-
 #include "ClasseMonster.h"
 #include "MonsterFightFonction.h"
 
@@ -11,18 +10,22 @@ int main()
 	bool resteConsoleForNewGame = false;
 
 	std::cout << "Bonjour, bienvenu dans Monster Fight Simulateur" << std::endl;
+	std::cout << std::endl;
 	std::cout << "Le but c'est que vous choisisez votre";
 	ShowMessage(" monstre ", 11) ;
 	std::cout << "et votre";
 	ShowMessage(" adversaire ", 12);
 	std::cout << std::endl;
+	std::cout << std::endl;
 	std::cout << "Vous allez vous affronter (tout est automatise) et voir qui vas gagner" << std::endl;
-
+	std::cout << std::endl;
+	
 	//Game
 	do
 	{
 #pragma region variable local Game
 		int priority = 0;
+		Round(true);
 		bool EndBattle = true;
 		char playerInputContinue;
 #pragma endregion
@@ -58,44 +61,51 @@ int main()
 		// Battle
 		do
 		{
-			std::cout << "---------------------" << std::endl;
 			Round();
+			std::cout << std::endl;
 			if (monster1.getS() == monster2.getS())
 			{
 				priority = randpriority();
 			}
 
-			if (!EndBattle && (monster1.getS() > monster2.getS() || priority == 1))
+			if (EndBattle && (monster1.getS() > monster2.getS() || priority == 1))
 			{
 				monster1.Statemonster();
 				monster1.Choix(monster2);
+				std::cout << std::endl;
 				EndBattle = monster2.DeadOrNot();
 				if (EndBattle)
 				{
 					monster2.Statemonster();
 					monster2.Choix(monster1);
+					std::cout << std::endl;
+					EndBattle = monster1.DeadOrNot();
 				}
-				EndBattle = monster1.DeadOrNot();
+				
 			}
 
 
-			if (!EndBattle && (monster1.getS() < monster2.getS() || priority == 2))
+			if (EndBattle && (monster1.getS() < monster2.getS() || priority == 2))
 			{
 				monster2.Statemonster();
 				monster2.Choix(monster1);
+				std::cout << std::endl;
 				EndBattle = monster1.DeadOrNot();
 				if (EndBattle)
 				{
 					monster1.Statemonster();
 					monster1.Choix(monster2);
+					std::cout << std::endl;
+					EndBattle = monster2.DeadOrNot();
 				}
-				EndBattle = monster2.DeadOrNot();
+				
 			}
 
 			monster1.EndOfRound();
 			monster2.EndOfRound();
 
 			std::cout << "Fin du round." << std::endl << "State :" << std::endl;
+			std::cout << std::endl;
 			monster1.Statemonster();
 			monster2.Statemonster();
 
@@ -105,6 +115,8 @@ int main()
 		} while (EndBattle);
 		monster1.EndGameMessage();
 		monster2.EndGameMessage();
+		system("Pause");
+		system("cls");
 #pragma endregion
 
 #pragma region EndGame

@@ -19,6 +19,6 @@ int RandomStateDP();
 //Create a random number between 1 and 10 with a greater chance of being around 5
 int RandomStateS();
 
-void Round();
+void Round(bool startBattle = false);
 
 void ShowMessage(std::string message, int color);
