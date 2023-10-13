@@ -12,7 +12,7 @@ Monster::~Monster()
 void Monster::State()
 {
 	std::string monsterName = nameMonster();
-	std::cout << "Nom :" << monsterName << " / Attack :" << AD << " / Defense :" << DP << " / speed :" << S << " / Vie :" << HP << std::endl;
+	std::cout << "Nom :" << monsterName << " / Attack :" << AD << " / Defense :" << DP + DPTemp << " / speed :" << S << " / Vie :" << HP << std::endl;
 }
 
 std::string Monster::nameMonster()
@@ -51,5 +51,13 @@ void Monster::Attack(Monster& enemy)
 
 void Monster::Pary()
 {
-	DP += 10;
-};
+	DPTemp += 10;
+}
+
+void Monster::EndOfRound()
+{
+	if (DPTemp > 0)
+	{
+		DPTemp = 0;
+	}
+}

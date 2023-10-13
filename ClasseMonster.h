@@ -20,6 +20,7 @@ public:
 	void Choix();
 	void Attack(Monster& enemy);
 	void Pary();
+	void EndOfRound();
 	void DeadOrNot();
 
 	/*int getHP() { return HP; };
@@ -34,6 +35,7 @@ private:
 	int AD;
 	int DP;
 	int S;
+	int DPTemp = 0;
 	Race monsterRace;
 
 	//Metode
