@@ -52,10 +52,16 @@ void Monster::Round()
 	std::cout << "Round : " << nbRound << std::endl;
 }
 
-void Monster::State()
+void Monster::Statemonster1()
 {
 	std::string monsterName = nameMonster();
-	std::cout << "Nom :" << monsterName << " / Attack :" << AD + ADTemp << " / Defense :" << DP + DPTemp << " / speed :" << S << " / Vie :" << HP << std::endl;
+	std::cout << "Nom :" << "\x1B[34m" << monsterName << "\x1B[0m" << " / Attack :" << AD + ADTemp << " / Defense :" << DP + DPTemp << " / speed :" << S << " / Vie :" << HP << std::endl;
+}
+
+void Monster::Statemonster2()
+{
+	std::string monsterName = nameMonster();
+	std::cout << "Nom :" << "\x1B[31m" << monsterName << "\x1B[0m" << " / Attack :" << AD + ADTemp << " / Defense :" << DP + DPTemp << " / speed :" << S << " / Vie :" << HP << std::endl;
 }
 
 
@@ -153,12 +159,14 @@ int Monster::DeadOrNot(Monster& enemy1, Monster& enemy2)
 {
 	if (enemy1.HP <= 0)
 	{
-		std::cout << enemy1.nameMonster() << " est mort" << std::endl;
+		std::cout << "\x1B[34m" << enemy1.nameMonster() << "\x1B[0m" << " est mort" << std::endl;
+		std::cout << "\x1B[31m" << enemy2.nameMonster() << "\x1B[0m" << " a gagner" << std::endl;
 		return false;
 	}
-	if  (enemy2.HP <= 0)
+	if (enemy2.HP <= 0)
 	{
-		std::cout << enemy2.nameMonster() << " est mort" << std::endl;
+		std::cout << "\x1B[31m" << enemy2.nameMonster() << "\x1B[0m" << " est mort" << std::endl;
+		std::cout << "\x1B[34m" << enemy1.nameMonster() << "\x1B[0m" << " a gagner" << std::endl;
 		return false;
 	}
 }

@@ -19,7 +19,8 @@ public:
 	//Metode
 	void Choix(Monster& enemy);
 	void Round();
-	void State();
+	void Statemonster1();
+	void Statemonster2();
 	void Attack(Monster& enemy);
 	void Rage(Monster& enemy);
 	void Pary();

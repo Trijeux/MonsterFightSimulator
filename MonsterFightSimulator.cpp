@@ -39,23 +39,23 @@ int main()
 			}
 			if (monster1.getS() > monster2.getS() || priority == 1)
 			{
-				monster1.State();
+				monster1.Statemonster1();
 				monster1.Choix(monster2);
 				EndBattle = Rounder.DeadOrNot(monster1, monster2);
 				if (EndBattle)
 				{
-					monster2.State();
+					monster2.Statemonster2();
 					monster2.Choix(monster1);
 				}
 			}
 			if (monster1.getS() < monster2.getS() || priority == 2)
 			{
-				monster2.State();
+				monster2.Statemonster2();
 				monster2.Choix(monster1);
 				EndBattle = Rounder.DeadOrNot(monster1, monster2);
 				if (EndBattle)
 				{
-					monster1.State();
+					monster1.Statemonster1();
 					monster1.Choix(monster2);
 				}
 			}
