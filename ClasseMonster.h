@@ -21,7 +21,7 @@ public:
 	void Round();
 	void State();
 	void Attack(Monster& enemy);
-	void Rage();
+	void Rage(Monster& enemy);
 	void Pary();
 	void AutoHeal();
 	void EndOfRound(Monster& enemy1, Monster& enemy2);

@@ -29,7 +29,7 @@ void Monster::Choix(Monster& enemy)
 	if (choix == 2)
 	{
 		std::cout << "Rage" << std::endl;
-		Rage();
+		Rage(enemy);
 		return;
 	}
 	if (choix == 3)
@@ -119,9 +119,10 @@ void Monster::Attack(Monster& enemy)
 	}
 }
 
-void Monster::Rage()
+void Monster::Rage(Monster& enemy)
 {
 	ADTemp += 10;
+	Attack(enemy);
 }
 
 void Monster::Pary()
