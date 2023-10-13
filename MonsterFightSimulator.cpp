@@ -11,6 +11,7 @@ int main()
 
 	std::cout << "Bonjour, bienvenu dans Monster Fight Simulateur" << std::endl;
 	std::cout << "Le but c'est que vous choisisez votre" << "\x1B[34m" << " monstre " << "\x1B[0m" << "et votre" << "\x1B[31m" << " adversaire " << "\x1B[0m" << std::endl;
+	std::cout << "Vous allez vous affronter (tout est automatise) et voir qui vas gagner" << std::endl;
 
 	//Game
 	do

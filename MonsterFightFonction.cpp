@@ -55,10 +55,10 @@ int ChoiseRaceMonster1(bool resteConsoleForNewGame)
 			{
 				// Checks if number is between 1 and array size
 				inputPlayer = std::stoi(inputString);
-				if (inputPlayer > Race(2) || inputPlayer < 0)
+				if (inputPlayer > Race(9) || inputPlayer < 0)
 				{
 					validNumber = true;
-					std::cout << "Ce n'est pas un chiffre entre " << Race(0) << "-" << Race(2) << std::endl;
+					std::cout << "Ce n'est pas un chiffre entre " << Race(0) << "-" << Race(9) << std::endl;
 					system("Pause");
 				}
 			}
@@ -109,10 +109,10 @@ int ChoiseRaceMonster2()
 			{
 				// Checks if number is between 1 and array size
 				inputPlayer = std::stoi(inputString);
-				if (inputPlayer > Race(2) || inputPlayer < 0)
+				if (inputPlayer > Race(9) || inputPlayer < 0)
 				{
 					validNumber = true;
-					std::cout << "Ce n'est pas un chiffre entre " << Race(0) << "-" << Race(8) << std::endl;
+					std::cout << "Ce n'est pas un chiffre entre " << Race(0) << "-" << Race(9) << std::endl;
 				}
 			}
 		} while (validNumber);
