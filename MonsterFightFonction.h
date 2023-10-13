@@ -4,7 +4,7 @@
 int randpriority();
 
 //Asks the player to choose the Race of their first monster
-int ChoiseRaceMonster1();
+int ChoiseRaceMonster1(bool resteConsoleForNewGame);
 
 //Asks the player to choose the Race of their second monster
 int ChoiseRaceMonster2();

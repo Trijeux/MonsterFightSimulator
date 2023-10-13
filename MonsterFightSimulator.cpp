@@ -7,9 +7,9 @@ int main()
 {
 
 	bool gameContinue = true;
+	bool resteConsoleForNewGame = false;
 
 	std::cout << "Bonjour, bienvenu dans Monster Fight Simulateur" << std::endl;
-	system("Pause");
 
 	//Game
 	do
@@ -21,7 +21,7 @@ int main()
 #pragma endregion
 
 #pragma region Choix Race
-		int joueurChoise1 = ChoiseRaceMonster1();
+		int joueurChoise1 = ChoiseRaceMonster1(resteConsoleForNewGame);
 		int joueurChoise2 = ChoiseRaceMonster2();
 #pragma endregion
 
@@ -106,6 +106,7 @@ int main()
 		else
 		{
 			std::cout << "Ok c'est repartie" << std::endl;
+			resteConsoleForNewGame = true;
 		}
 #pragma endregion
 	}

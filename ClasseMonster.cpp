@@ -211,7 +211,7 @@ void Monster::Pary()
 	paryPoint = nbrand(e2);
 
 	DPTemp += paryPoint;
-	std::cout << "essaie de me toucher si tu peux" << std::endl;
+	std::cout << "Essaie de me toucher si tu peux" << std::endl;
 }
 
 void Monster::AutoHeal()
