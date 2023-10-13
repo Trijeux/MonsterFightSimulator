@@ -67,6 +67,7 @@ int ChoiseRaceMonster2()
 		{
 			validInput = true;
 			validNumber = false;
+			system("cls");
 			std::cout << "ET le deuxieme Orc(0), Troll(1) ou Goblin(2) :" << std::endl;
 			std::getline(std::cin, inputString);
 
