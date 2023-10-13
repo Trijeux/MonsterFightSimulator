@@ -36,10 +36,10 @@ void Monster::takeDomage(int domage)
 
 void Monster::Attack(Monster& enemy)
 {
-	if (AD > enemy.DP)
+	if (AD > enemy.DP + enemy.DPTemp)
 	{
 		int domage;
-		domage = AD - enemy.DP;
+		domage = AD - enemy.DP + DPTemp;
 		/*std::cout << nameMonster() << AD << " " << enemy.nameMonster() << enemy.DP << std::endl;*/
 		enemy.takeDomage(domage);
 	}

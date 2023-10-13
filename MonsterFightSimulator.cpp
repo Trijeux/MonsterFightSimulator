@@ -9,19 +9,21 @@ int main()
 
 	/*monster1.State();
 	monster2.State();
-	monster3.State();
+	monster3.State();*/
 
-	monster1.Attack(monster2);
-	monster2.Attack(monster1);*/
+	//monster1.Attack(monster2);
+	//monster2.Attack(monster1);
 
 	int test = 0;
 	do
 	{
-		monster1.State();
-		monster1.Pary();
-		monster1.State();
+		monster2.State();
+		monster2.Pary();
+		monster2.State();
+		monster1.Attack(monster2);
 		monster1.EndOfRound();
+		monster2.EndOfRound();
+		monster3.EndOfRound();
 		test++;
-	}
-	while (test < 5);
+	} while (test < 5);
 }
