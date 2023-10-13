@@ -6,6 +6,13 @@ enum Race
 	Orc,
 	Troll,
 	Goblin,
+	Centaur,
+	Dullahan,
+	Ogre,
+	Werewolf,
+	Elf,
+	Harpy,
+	Salamander
 };
 
 class Monster

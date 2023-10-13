@@ -91,15 +91,15 @@ int Monster::DeadOrNot(Monster& enemy1, Monster& enemy2)
 	//See if monster 1 is dead
 	if (enemy1.HP <= 0)
 	{
-		std::cout << "\x1B[34m" << enemy1.nameMonster() << "\x1B[0m" << " est mort" << std::endl;
-		std::cout << "\x1B[31m" << enemy2.nameMonster() << "\x1B[0m" << " a gagner" << std::endl;
+		std::cout << "\x1B[34m" << enemy1.nameMonster() << "\x1B[0m" << " est mort! Vous avez perdu" << std::endl;
+		std::cout << "\x1B[31m" << enemy2.nameMonster() << "\x1B[0m" << " a survecu! L'adversaire a gagne" << std::endl;
 		return false;
 	}
 	//See if monster 2 is dead
 	if (enemy2.HP <= 0)
 	{
-		std::cout << "\x1B[31m" << enemy2.nameMonster() << "\x1B[0m" << " est mort" << std::endl;
-		std::cout << "\x1B[34m" << enemy1.nameMonster() << "\x1B[0m" << " a gagner" << std::endl;
+		std::cout << "\x1B[31m" << enemy2.nameMonster() << "\x1B[0m" << " est mort! L'adversaire a perdu" << std::endl;
+		std::cout << "\x1B[34m" << enemy1.nameMonster() << "\x1B[0m" << " a survecu! Vous avez gagne" << std::endl;
 		return false;
 	}
 }

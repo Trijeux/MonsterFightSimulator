@@ -26,7 +26,17 @@ int ChoiseRaceMonster1(bool resteConsoleForNewGame)
 		{
 			validInput = true;
 			validNumber = false;
-			std::cout << "Veuillez choisire la Race du premier monstre Orc(0), Troll(1) ou Goblin(2) :" << std::endl;
+			std::cout << "Veuillez choisire la Race de ton monstre :" << std::endl;
+			std::cout << "Orc (" << Orc << ")" << std::endl;
+			std::cout << "Troll (" << Troll << ")" << std::endl;
+			std::cout << "Goblin (" << Goblin << ")" << std::endl;
+			std::cout << "Centaur (" << Centaur << ")" << std::endl;
+			std::cout << "Dullahan (" << Dullahan << ")" << std::endl;
+			std::cout << "Ogre (" << Ogre << ")" << std::endl;
+			std::cout << "Werewolf (" << Werewolf << ")" << std::endl;
+			std::cout << "Elf (" << Elf << ")" << std::endl;
+			std::cout << "Harpy (" << Harpy << ")" << std::endl;
+			std::cout << "Salamander (" << Salamander << ")" << std::endl;
 			std::getline(std::cin, inputString);
 
 
@@ -76,7 +86,17 @@ int ChoiseRaceMonster2()
 			{
 				clsExecuted = true;
 			}
-			std::cout << "Et le deuxieme Orc(0), Troll(1) ou Goblin(2) :" << std::endl;
+			std::cout << "Et ton adversaire :" << std::endl;
+			std::cout << "Orc (" << Orc << ")" << std::endl;
+			std::cout << "Troll (" << Troll << ")" << std::endl;
+			std::cout << "Goblin (" << Goblin << ")" << std::endl;
+			std::cout << "Centaur (" << Centaur << ")" << std::endl;
+			std::cout << "Dullahan (" << Dullahan << ")" << std::endl;
+			std::cout << "Ogre (" << Ogre << ")" << std::endl;
+			std::cout << "Werewolf (" << Werewolf << ")" << std::endl;
+			std::cout << "Elf (" << Elf << ")" << std::endl;
+			std::cout << "Harpy (" << Harpy << ")" << std::endl;
+			std::cout << "Salamander (" << Salamander << ")" << std::endl;
 			std::getline(std::cin, inputString);
 
 			// Check if it's a number or not
@@ -92,7 +112,7 @@ int ChoiseRaceMonster2()
 				if (inputPlayer > Race(2) || inputPlayer < 0)
 				{
 					validNumber = true;
-					std::cout << "Ce n'est pas un chiffre entre " << Race(0) << "-" << Race(2) << std::endl;
+					std::cout << "Ce n'est pas un chiffre entre " << Race(0) << "-" << Race(8) << std::endl;
 				}
 			}
 		} while (validNumber);
