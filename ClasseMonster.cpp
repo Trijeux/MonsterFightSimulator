@@ -115,6 +115,20 @@ std::string Monster::nameMonster()
 		return "Troll";
 	case Goblin:
 		return "Goblin";
+	case Centaur:
+		return "Centaur";
+	case Dullahan:
+		return "Dullahan";
+	case Ogre:
+		return "Ogre";
+	case Werewolf:
+		return "Werewolf";
+	case Elf:
+		return "Elf";
+	case Harpy:
+		return "Harpy";
+	case Salamander:
+		return "Salamander";
 	default:
 		return "Invalid";
 	}
