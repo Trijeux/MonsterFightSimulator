@@ -9,6 +9,7 @@ int main()
 	bool gameContinue = true;
 
 	std::cout << "Bonjour, bienvenu dans Monster Fight Simulateur" << std::endl;
+	system("Pause");
 
 	//Game
 	do
