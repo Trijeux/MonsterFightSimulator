@@ -27,6 +27,7 @@ int ChoiseRaceMonster1()
 		{
 			validInput = true;
 			validNumber = false;
+			system("cls");
 			std::cout << "Veuillez choisire la Race du premier monstre Orc(0), Troll(1) ou Goblin(2) :" << std::endl;
 			std::getline(std::cin, inputString);
 
