@@ -8,3 +8,12 @@ int ChoiseRaceMonster1();
 
 //Asks the player to choose the Race of their second monster
 int ChoiseRaceMonster2();
+
+//Create a random number between 1 and 40 with a greater chance of being around 20
+int RandomStateAD();
+
+//Create a random number between 1 and 20 with a greater chance of being around 10
+int RandomStateDP();
+
+//Create a random number between 1 and 10 with a greater chance of being around 5
+int RandomStateS();

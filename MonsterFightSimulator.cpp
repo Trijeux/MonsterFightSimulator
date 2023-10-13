@@ -14,7 +14,7 @@ int main()
 	do
 	{
 #pragma region variable local Game
-		int priority;
+		int priority = 0;
 		bool EndBattle = true;
 		char playerInputContinue;
 #pragma endregion
@@ -24,11 +24,25 @@ int main()
 		int joueurChoise2 = ChoiseRaceMonster2();
 #pragma endregion
 
+#pragma region Creat Stat Monster
+		int statADMonster1 = RandomStateAD();
+
+		int statDPMonster1 = RandomStateDP();
+
+		int statSMonster1 = RandomStateS();
+
+		int statADMonster2 = RandomStateAD();
+
+		int statDPMonster2 = RandomStateDP();
+
+		int statSMonster2 = RandomStateS();
+#pragma endregion
+
 		system("cls");
 
 #pragma region Monster
-		Monster monster1(100, 30, 20, 10, Race(joueurChoise1));
-		Monster monster2(100, 30, 20, 10, Race(joueurChoise2));
+		Monster monster1(100, statADMonster1, statDPMonster1, 10, Race(joueurChoise1));
+		Monster monster2(100, statADMonster2, statDPMonster2, 3, Race(joueurChoise2));
 		Monster Rounder(0, 0, 0);
 #pragma endregion
 
