@@ -1,5 +1,6 @@
 #include "ClasseMonster.h"
 #include <iostream>
+#include <random>
 
 Monster::Monster(int _healthPoints, int _attackDamage, int _defensePoints, int _speed, Race _monsterRace) : HP(_healthPoints), AD(_attackDamage), DP(_defensePoints), S(_speed), monsterRace(_monsterRace) {}
 
@@ -10,11 +11,45 @@ Monster::~Monster()
 	std::cout << "Le monster est detruite" << std::endl;
 }
 
+void Monster::Choix(Monster& enemy)
+{
+	int choix;
+	std::random_device rand;
+	std::default_random_engine e2(rand());
+	std::uniform_int_distribution<> nbrand(1, 4);
+	choix = nbrand(e2);
+	/*std::cout << "Choix : " << choix << std::endl;*/
+
+	if (choix == 1)
+	{
+		std::cout << "Attack" << std::endl;
+		Attack(enemy);
+		return;
+	}
+	if (choix == 2)
+	{
+		std::cout << "Rage" << std::endl;
+		Rage();
+		return;
+	}
+	if (choix == 3)
+	{
+		std::cout << "Pary" << std::endl;
+		Pary();
+		return;
+	}
+	if (choix == 4)
+	{
+		std::cout << "Heal" << std::endl;
+		AutoHeal();
+	}
+}
+
 
 void Monster::Round()
 {
 	nbRound += 1;
-	std::cout << nbRound << std::endl;
+	std::cout << "Round : " << nbRound << std::endl;
 }
 
 void Monster::State()
@@ -80,7 +115,7 @@ void Monster::Attack(Monster& enemy)
 	}
 	else
 	{
-		std::cout << "Seulement ? Tu es faible" << std::endl;
+		std::cout << enemy.nameMonster() << ": Seulement ? Tu es faible" << std::endl;
 	}
 }
 

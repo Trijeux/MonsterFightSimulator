@@ -17,7 +17,7 @@ public:
 	~Monster();
 
 	//Metode
-	void Choix();
+	void Choix(Monster& enemy);
 	void Round();
 	void State();
 	void Attack(Monster& enemy);
@@ -29,8 +29,8 @@ public:
 
 	/*int getHP() { return HP; };
 	int getAD() { return AD; };
-	int getDP() { return DP; };
-	int getS() { return S; };*/
+	int getDP() { return DP; };*/
+	int getS() { return S; };
 
 private:
 
