@@ -3,9 +3,9 @@
 
 int main()
 {
-	Monster monster1(50, 25, 30, 5, Orc);
-	Monster monster2(25, 10, 20, 10, Troll);
-	Monster monstervoid(0, 0, 0, 0, Nothing);
+	Monster monster1(100, 30, 30, 5, Orc);
+	Monster monster2(100, 10, 10, 10, Troll);
+	Monster Rounder(0,0, 0);
 
 	/*monster1.State();
 	monster2.State();*/
@@ -16,15 +16,13 @@ int main()
 	int test = 0;
 	do
 	{
-		std::cout << "New Round" << std::endl;
+		Rounder.Round();
 		monster1.State();
 		monster2.State();
-		monster1.Rage();
-		monster2.Pary();
-		monster1.State();
+		monster2.AutoHeal();
 		monster2.State();
 		monster1.Attack(monster2);
 		test++;
-		monstervoid.EndOfRound(monster1, monster2);
+		Rounder.EndOfRound(monster1, monster2);
 	} while (test < 5);
 }

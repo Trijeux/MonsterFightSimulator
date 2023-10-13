@@ -6,7 +6,6 @@ enum Race
 	Orc,
 	Troll,
 	Goblin,
-	Nothing
 };
 
 class Monster
@@ -14,10 +13,12 @@ class Monster
 public:
 	//Constructor
 	Monster(int _healthPoints, int _attackDamage, int _defensePoints, int _speed, Race _monsterRace);
+	Monster(int _attackDamageTemp, int _defensePointTemp, int _nbRound);
 	~Monster();
 
 	//Metode
 	void Choix();
+	void Round();
 	void State();
 	void Attack(Monster& enemy);
 	void Rage();
@@ -40,6 +41,8 @@ private:
 	int S;
 	int DPTemp = 0;
 	int ADTemp = 0;
+	int HPMax = 100;
+	int nbRound = 0;
 	Race monsterRace;
 
 	//Metode

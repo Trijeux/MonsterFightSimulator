@@ -1,7 +1,9 @@
 #include "ClasseMonster.h"
 #include <iostream>
 
-Monster::Monster(int _healthPoints, int _attackDamage, int _defensePoints, int _speed, Race _monsterRace) : HP(_healthPoints), AD(_attackDamage), DP(_defensePoints), S(_speed), monsterRace(_monsterRace) {};
+Monster::Monster(int _healthPoints, int _attackDamage, int _defensePoints, int _speed, Race _monsterRace) : HP(_healthPoints), AD(_attackDamage), DP(_defensePoints), S(_speed), monsterRace(_monsterRace) {}
+
+Monster::Monster(int _attackDamageTemp, int _defensePointTemp, int _nbRound) : ADTemp(_attackDamageTemp), DPTemp(_defensePointTemp), nbRound(_nbRound) {};
 
 Monster::~Monster()
 {
@@ -9,11 +11,18 @@ Monster::~Monster()
 }
 
 
+void Monster::Round()
+{
+	nbRound += 1;
+	std::cout << nbRound << std::endl;
+}
+
 void Monster::State()
 {
 	std::string monsterName = nameMonster();
 	std::cout << "Nom :" << monsterName << " / Attack :" << AD + ADTemp << " / Defense :" << DP + DPTemp << " / speed :" << S << " / Vie :" << HP << std::endl;
 }
+
 
 std::string Monster::nameMonster()
 {
@@ -32,6 +41,22 @@ std::string Monster::nameMonster()
 void Monster::takeDomage(int domage)
 {
 	HP -= domage;
+}
+
+void Monster::giveHP()
+{
+	if (HP < HPMax)
+	{
+		HP += 10;
+		if (HP > HPMax)
+		{
+			HP = HPMax;
+		}
+	}
+	else
+	{
+		std::cout << "HP deja au Max" << std::endl;
+	}
 }
 
 void Monster::resetDPTemp()
@@ -67,6 +92,11 @@ void Monster::Rage()
 void Monster::Pary()
 {
 	DPTemp += 10;
+}
+
+void Monster::AutoHeal()
+{
+	giveHP();
 }
 
 void Monster::EndOfRound(Monster& enemy1, Monster& enemy2)
