@@ -112,3 +112,17 @@ void Monster::EndOfRound(Monster& enemy1, Monster& enemy2)
 		enemy2.resetADTemp();
 	}
 }
+
+int Monster::DeadOrNot(Monster& enemy1, Monster& enemy2)
+{
+	if (enemy1.HP <= 0)
+	{
+		std::cout << enemy1.nameMonster() << " est mort" << std::endl;
+		return false;
+	}
+	if  (enemy2.HP <= 0)
+	{
+		std::cout << enemy2.nameMonster() << " est mort" << std::endl;
+		return false;
+	}
+}

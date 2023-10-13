@@ -13,7 +13,7 @@ int main()
 	//monster1.Attack(monster2);
 	//monster2.Attack(monster1);
 
-	int test = 0;
+	bool test = true;
 	do
 	{
 		Rounder.Round();
@@ -22,7 +22,7 @@ int main()
 		monster2.AutoHeal();
 		monster2.State();
 		monster1.Attack(monster2);
-		test++;
 		Rounder.EndOfRound(monster1, monster2);
-	} while (test < 5);
+		test = Rounder.DeadOrNot(monster1, monster2);
+	} while (test);
 }

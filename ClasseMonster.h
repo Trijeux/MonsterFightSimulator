@@ -25,7 +25,7 @@ public:
 	void Pary();
 	void AutoHeal();
 	void EndOfRound(Monster& enemy1, Monster& enemy2);
-	void DeadOrNot();
+	int DeadOrNot(Monster& enemy1, Monster& enemy2);
 
 	/*int getHP() { return HP; };
 	int getAD() { return AD; };
