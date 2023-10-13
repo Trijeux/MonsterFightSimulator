@@ -5,7 +5,8 @@ enum Race
 {
 	Orc,
 	Troll,
-	Goblin
+	Goblin,
+	Nothing
 };
 
 class Monster
@@ -16,11 +17,13 @@ public:
 	~Monster();
 
 	//Metode
-	void State();
 	void Choix();
+	void State();
 	void Attack(Monster& enemy);
+	void Rage();
 	void Pary();
-	void EndOfRound();
+	void AutoHeal();
+	void EndOfRound(Monster& enemy1, Monster& enemy2);
 	void DeadOrNot();
 
 	/*int getHP() { return HP; };
@@ -36,12 +39,15 @@ private:
 	int DP;
 	int S;
 	int DPTemp = 0;
+	int ADTemp = 0;
 	Race monsterRace;
 
 	//Metode
 	std::string nameMonster();
 	void takeDomage(int domage);
 	void giveHP();
+	void resetDPTemp();
+	void resetADTemp();
 
 
 

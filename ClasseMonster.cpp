@@ -12,7 +12,7 @@ Monster::~Monster()
 void Monster::State()
 {
 	std::string monsterName = nameMonster();
-	std::cout << "Nom :" << monsterName << " / Attack :" << AD << " / Defense :" << DP + DPTemp << " / speed :" << S << " / Vie :" << HP << std::endl;
+	std::cout << "Nom :" << monsterName << " / Attack :" << AD + ADTemp << " / Defense :" << DP + DPTemp << " / speed :" << S << " / Vie :" << HP << std::endl;
 }
 
 std::string Monster::nameMonster()
@@ -34,12 +34,22 @@ void Monster::takeDomage(int domage)
 	HP -= domage;
 }
 
+void Monster::resetDPTemp()
+{
+	DPTemp = 0;
+}
+
+void Monster::resetADTemp()
+{
+	ADTemp = 0;
+}
+
 void Monster::Attack(Monster& enemy)
 {
-	if (AD > enemy.DP + enemy.DPTemp)
+	if (AD + ADTemp > enemy.DP + enemy.DPTemp)
 	{
 		int domage;
-		domage = AD - enemy.DP + DPTemp;
+		domage = AD + ADTemp - enemy.DP + enemy.DPTemp;
 		/*std::cout << nameMonster() << AD << " " << enemy.nameMonster() << enemy.DP << std::endl;*/
 		enemy.takeDomage(domage);
 	}
@@ -49,15 +59,26 @@ void Monster::Attack(Monster& enemy)
 	}
 }
 
+void Monster::Rage()
+{
+	ADTemp += 10;
+}
+
 void Monster::Pary()
 {
 	DPTemp += 10;
 }
 
-void Monster::EndOfRound()
+void Monster::EndOfRound(Monster& enemy1, Monster& enemy2)
 {
-	if (DPTemp > 0)
+	if (enemy1.DPTemp > 0 || enemy1.ADTemp > 0)
 	{
-		DPTemp = 0;
+		enemy1.resetDPTemp();
+		enemy1.resetADTemp();
+	}
+	if (enemy2.DPTemp > 0 || enemy2.ADTemp > 0)
+	{
+		enemy2.resetDPTemp();
+		enemy2.resetADTemp();
 	}
 }
