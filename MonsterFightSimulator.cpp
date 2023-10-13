@@ -1,16 +1,21 @@
 #include <iostream>
 #include <random>
+#include <windows.h>
+
 #include "ClasseMonster.h"
 #include "MonsterFightFonction.h"
 
 int main()
 {
-
 	bool gameContinue = true;
 	bool resteConsoleForNewGame = false;
 
 	std::cout << "Bonjour, bienvenu dans Monster Fight Simulateur" << std::endl;
-	std::cout << "Le but c'est que vous choisisez votre" << "\x1B[34m" << " monstre " << "\x1B[0m" << "et votre" << "\x1B[31m" << " adversaire " << "\x1B[0m" << std::endl;
+	std::cout << "Le but c'est que vous choisisez votre";
+	ShowMessage(" monstre ", 11) ;
+	std::cout << "et votre";
+	ShowMessage(" adversaire ", 12);
+	std::cout << std::endl;
 	std::cout << "Vous allez vous affronter (tout est automatise) et voir qui vas gagner" << std::endl;
 
 	//Game
@@ -44,9 +49,9 @@ int main()
 		system("cls");
 
 #pragma region Monster
-		Monster monster1(100, statADMonster1, statDPMonster1, statSMonster1, Race(joueurChoise1));
-		Monster monster2(100, statADMonster2, statDPMonster2, statSMonster2, Race(joueurChoise2));
-		Monster Rounder(0, 0, 0);
+		Monster monster1(100, statADMonster1, statDPMonster1, statSMonster1, Race(joueurChoise1), 11);
+		Monster monster2(100, statADMonster2, statDPMonster2, statSMonster2, Race(joueurChoise2), 12);
+
 #pragma endregion
 
 #pragma region Battle
@@ -54,47 +59,52 @@ int main()
 		do
 		{
 			std::cout << "---------------------" << std::endl;
-			Rounder.Round();
+			Round();
 			if (monster1.getS() == monster2.getS())
 			{
 				priority = randpriority();
 			}
-			if (monster1.getS() > monster2.getS() || priority == 1)
+
+			if (!EndBattle && (monster1.getS() > monster2.getS() || priority == 1))
 			{
-				monster1.Statemonster1();
-				monster1.Choix(monster2, priority);
-				EndBattle = Rounder.DeadOrNot(monster1, monster2);
+				monster1.Statemonster();
+				monster1.Choix(monster2);
+				EndBattle = monster2.DeadOrNot();
 				if (EndBattle)
 				{
-					monster2.Statemonster2();
-					monster2.Choix(monster1, priority);
+					monster2.Statemonster();
+					monster2.Choix(monster1);
 				}
-			}
-			if (monster1.getS() < monster2.getS() || priority == 2)
-			{
-				monster2.Statemonster2();
-				monster2.Choix(monster1, priority);
-				EndBattle = Rounder.DeadOrNot(monster1, monster2);
-				if (EndBattle)
-				{
-					monster1.Statemonster1();
-					monster1.Choix(monster2, priority);
-				}
+				EndBattle = monster1.DeadOrNot();
 			}
 
-			Rounder.EndOfRound(monster1, monster2);
-			if (EndBattle)
+
+			if (!EndBattle && (monster1.getS() < monster2.getS() || priority == 2))
 			{
-				EndBattle = Rounder.DeadOrNot(monster1, monster2);
+				monster2.Statemonster();
+				monster2.Choix(monster1);
+				EndBattle = monster1.DeadOrNot();
+				if (EndBattle)
+				{
+					monster1.Statemonster();
+					monster1.Choix(monster2);
+				}
+				EndBattle = monster2.DeadOrNot();
 			}
+
+			monster1.EndOfRound();
+			monster2.EndOfRound();
 
 			std::cout << "Fin du round." << std::endl << "State :" << std::endl;
-			monster1.Statemonster1();
-			monster2.Statemonster2();
+			monster1.Statemonster();
+			monster2.Statemonster();
 
 			system("Pause");
 			system("cls");
+
 		} while (EndBattle);
+		monster1.EndGameMessage();
+		monster2.EndGameMessage();
 #pragma endregion
 
 #pragma region EndGame

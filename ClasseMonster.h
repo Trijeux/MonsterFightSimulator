@@ -17,9 +17,10 @@ enum Race
 
 class Monster
 {
+
 public:
 #pragma region Constuctor
-	Monster(int _healthPoints, int _attackDamage, int _defensePoints, int _speed, Race _monsterRace);
+	Monster(int _healthPoints, int _attackDamage, int _defensePoints, int _speed, Race _monsterRace, int _color);
 	Monster(int _attackDamageTemp, int _defensePointTemp, int _nbRound);
 	~Monster();
 #pragma endregion
@@ -27,22 +28,18 @@ public:
 #pragma region Metode
 
 	//Throws a rand between 1 and 4 to know what action it will do
-	void Choix(Monster& enemy, int priority);
+	void Choix(Monster& enemy);
 
-	//Displays the number of rounds completed
-	void Round();
-
-	//Shows the stats of monster 1
-	void Statemonster1();
-
-	//Shows the stats of monster 2
-	void Statemonster2();
+	//Shows the stats of monster 
+	void Statemonster();
 
 	//Complete rounds
-	void EndOfRound(Monster& enemy1, Monster& enemy2);
+	void EndOfRound();
 
 	//Check if one of the two monsters is dead
-	int DeadOrNot(Monster& enemy1, Monster& enemy2);
+	void EndGameMessage();
+
+	bool DeadOrNot();
 
 	//Gives the value of speed
 	int getS() { return S; };
@@ -50,7 +47,7 @@ public:
 
 private:
 
-#pragma region Propryety
+#pragma region Property
 	int HP;
 	int AD;
 	int DP;
@@ -58,8 +55,8 @@ private:
 	int DPTemp = 0;
 	int ADTemp = 0;
 	int HPMax = 100;
-	int nbRound = 0;
 	Race monsterRace;
+	int color;
 #pragma endregion
 
 #pragma region Metode
@@ -80,22 +77,19 @@ private:
 	void resetADTemp();
 
 	//The monster attacks
-	void Attack(Monster& enemy, int priority);
+	void Attack(Monster& enemy);
 
 	//The monster rages and attacks harder
-	void Rage(Monster& enemy, int priority);
+	void Rage(Monster& enemy);
 
 	//The monster defends itself
 	void Pary();
 
 	//The monster heals itself
 	void AutoHeal();
+
+	void ShowMessageMonster(std::string message);
 #pragma endregion
-
-
-
-
-
 
 };
 

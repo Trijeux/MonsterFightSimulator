@@ -2,6 +2,7 @@
 #include <iostream>
 #include <random>
 #include <string>
+#include <windows.h>
 #include "ClasseMonster.h"
 
 int randpriority()
@@ -75,6 +76,7 @@ int ChoiseRaceMonster2()
 	bool validNumber = false;
 	std::string inputString;
 	bool clsExecuted = false;
+
 	//Checks if the user enters valid data
 	do
 	{
@@ -143,4 +145,20 @@ int RandomStateS()
 	std::default_random_engine e2(rand());
 	std::poisson_distribution<> nbrand(5);
 	return nbrand(e2);
+}
+
+void Round()
+{
+	int nbRound = 0;
+	nbRound += 1;
+	std::cout << "Round : " << nbRound << std::endl;
+}
+
+void ShowMessage(std::string message, int color)
+{
+	HANDLE terminal = GetStdHandle(STD_OUTPUT_HANDLE);
+
+	SetConsoleTextAttribute(terminal, color);
+	std::cout << message;
+	SetConsoleTextAttribute(terminal, 15);
 }

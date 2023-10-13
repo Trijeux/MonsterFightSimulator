@@ -1,13 +1,10 @@
 #include "ClasseMonster.h"
 #include <iostream>
 #include <random>
+#include <windows.h>
 
 #pragma region Constructor
-
-
-Monster::Monster(int _healthPoints, int _attackDamage, int _defensePoints, int _speed, Race _monsterRace) : HP(_healthPoints), AD(_attackDamage), DP(_defensePoints), S(_speed), monsterRace(_monsterRace) {}
-
-Monster::Monster(int _attackDamageTemp, int _defensePointTemp, int _nbRound) : ADTemp(_attackDamageTemp), DPTemp(_defensePointTemp), nbRound(_nbRound) {};
+Monster::Monster(int _healthPoints, int _attackDamage, int _defensePoints, int _speed, Race _monsterRace, int _color) : HP(_healthPoints), AD(_attackDamage), DP(_defensePoints), S(_speed), monsterRace(_monsterRace), color(_color) {}
 
 Monster::~Monster()
 {
@@ -16,7 +13,7 @@ Monster::~Monster()
 #pragma endregion
 
 #pragma region Metode Public
-void Monster::Choix(Monster& enemy, int priority)
+void Monster::Choix(Monster& enemy)
 {
 	int choix;
 
@@ -30,12 +27,12 @@ void Monster::Choix(Monster& enemy, int priority)
 	if (choix == 1)
 	{
 		std::cout << "Attack" << std::endl;
-		Attack(enemy, priority);
+		Attack(enemy);
 	}
 	if (choix == 2)
 	{
 		std::cout << "Rage" << std::endl;
-		Rage(enemy, priority);
+		Rage(enemy);
 
 	}
 	if (choix == 3)
@@ -51,57 +48,47 @@ void Monster::Choix(Monster& enemy, int priority)
 	}
 }
 
-void Monster::Round()
+void Monster::Statemonster()
 {
-	nbRound += 1;
-	std::cout << "Round : " << nbRound << std::endl;
+	std::cout << "Nom :";
+	ShowMessageMonster(nameMonster());
+	std::cout << " / Attack :" << AD + ADTemp << " / Defense :" << DP + DPTemp << " / speed :" << S << " / Vie :" << HP << std::endl;
 }
 
-void Monster::Statemonster1()
+void Monster::EndOfRound()
 {
-	std::string monsterName = nameMonster();
-	std::cout << "Nom :" << "\x1B[34m" << monsterName << "\x1B[0m" << " / Attack :" << AD + ADTemp << " / Defense :" << DP + DPTemp << " / speed :" << S << " / Vie :" << HP << std::endl;
-}
-
-void Monster::Statemonster2()
-{
-	std::string monsterName = nameMonster();
-	std::cout << "Nom :" << "\x1B[31m" << monsterName << "\x1B[0m" << " / Attack :" << AD + ADTemp << " / Defense :" << DP + DPTemp << " / speed :" << S << " / Vie :" << HP << std::endl;
-}
-
-void Monster::EndOfRound(Monster& enemy1, Monster& enemy2)
-{
-	//See if monster 1 has temporary defense or temporary attack
-	if (enemy1.DPTemp > 0 || enemy1.ADTemp > 0)
+	//See if monster has temporary defense or temporary attack
+	if (DPTemp > 0 || ADTemp > 0)
 	{
-		enemy1.resetDPTemp();
-		enemy1.resetADTemp();
-	}
-
-	//See if monster 2 has temporary defense or temporary attack
-	if (enemy2.DPTemp > 0 || enemy2.ADTemp > 0)
-	{
-		enemy2.resetDPTemp();
-		enemy2.resetADTemp();
+		resetDPTemp();
+		resetADTemp();
 	}
 }
 
-int Monster::DeadOrNot(Monster& enemy1, Monster& enemy2)
+void Monster::EndGameMessage()
 {
 	//See if monster 1 is dead
-	if (enemy1.HP <= 0)
+	if (HP <= 0)
 	{
-		std::cout << "\x1B[34m" << enemy1.nameMonster() << "\x1B[0m" << " est mort! Vous avez perdu" << std::endl;
-		std::cout << "\x1B[31m" << enemy2.nameMonster() << "\x1B[0m" << " a survecu! L'adversaire a gagne" << std::endl;
-		return false;
+		ShowMessageMonster(nameMonster());
+		std::cout << " est mort! Vous avez perdu" << std::endl;
 	}
 	//See if monster 2 is dead
-	if (enemy2.HP <= 0)
+	if (HP > 0)
 	{
-		std::cout << "\x1B[31m" << enemy2.nameMonster() << "\x1B[0m" << " est mort! L'adversaire a perdu" << std::endl;
-		std::cout << "\x1B[34m" << enemy1.nameMonster() << "\x1B[0m" << " a survecu! Vous avez gagne" << std::endl;
+
+		ShowMessageMonster(nameMonster());
+		std::cout << " a survecu! Vous avez gagne" << std::endl;
+	}
+}
+
+bool Monster::DeadOrNot()
+{
+	if (HP <= 0)
+	{
 		return false;
 	}
+	return true;
 }
 #pragma endregion
 
@@ -156,10 +143,12 @@ void Monster::giveHP()
 		{
 			HP = HPMax;
 		}
+		ShowMessageMonster(nameMonster());
 		std::cout << "Ca fait du bien" << std::endl;
 	}
 	else
 	{
+		ShowMessageMonster(nameMonster());
 		std::cout << "HP deja au Max" << std::endl;
 	}
 }
@@ -174,7 +163,7 @@ void Monster::resetADTemp()
 	ADTemp = 0;
 }
 
-void Monster::Attack(Monster& enemy, int priority)
+void Monster::Attack(Monster& enemy)
 {
 	int echec = 0;
 	//Check if the enemy's defense is not above the attack
@@ -182,29 +171,27 @@ void Monster::Attack(Monster& enemy, int priority)
 	{
 		int domage;
 		domage = AD + ADTemp - enemy.DP + enemy.DPTemp;
-		/*std::cout << nameMonster() << AD << " " << enemy.nameMonster() << enemy.DP << std::endl;*/
 		enemy.takeDomage(domage);
 		echec = 1;
 	}
 	if (ADTemp <= 0)
 	{
-		std::cout << "Prend ca" << std::endl;
+		ShowMessageMonster(nameMonster());
+		std::cout << ": prend ca" << std::endl;
 	}
 	if (ADTemp > 0)
 	{
-		std::cout << "Tu vas Mourire" << std::endl;
+		ShowMessageMonster(nameMonster());
+		std::cout << ": tu vas Mourire" << std::endl;
 	}
-	if (echec == 0 && S > enemy.S || priority == 1)
+	if (echec == 0)
 	{
-		std::cout << "\x1B[31m" << enemy.nameMonster() << "\x1B[0m" << ": Seulement ? Tu es faible" << std::endl;
-	}
-	if (echec == 0 && enemy.S > S || priority == 2)
-	{
-		std::cout << "\x1B[34m" << enemy.nameMonster() << "\x1B[0m" << ": Seulement ? Tu es faible" << std::endl;
+		ShowMessageMonster(enemy.nameMonster());
+		std::cout << ": Seulement ? Tu es faible" << std::endl;
 	}
 }
 
-void Monster::Rage(Monster& enemy, int priority)
+void Monster::Rage(Monster& enemy)
 {
 	int ragePoint;
 	std::random_device rand;
@@ -213,7 +200,7 @@ void Monster::Rage(Monster& enemy, int priority)
 	ragePoint = nbrand(e2);
 
 	ADTemp += ragePoint;
-	Attack(enemy, priority);
+	Attack(enemy);
 }
 
 void Monster::Pary()
@@ -225,12 +212,22 @@ void Monster::Pary()
 	paryPoint = nbrand(e2);
 
 	DPTemp += paryPoint;
+	ShowMessageMonster(nameMonster());
 	std::cout << "Essaie de me toucher si tu peux" << std::endl;
 }
 
 void Monster::AutoHeal()
 {
 	giveHP();
+}
+
+void Monster::ShowMessageMonster(std::string message)
+{
+	HANDLE terminal = GetStdHandle(STD_OUTPUT_HANDLE);
+
+	SetConsoleTextAttribute(terminal, color);
+	std::cout << message;
+	SetConsoleTextAttribute(terminal, 15);
 }
 #pragma endregion
 

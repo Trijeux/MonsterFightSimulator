@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 
 //If the speed of the two monsters is equal, choose a number between 1 and 2 to know who starts
 int randpriority();
@@ -17,3 +18,7 @@ int RandomStateDP();
 
 //Create a random number between 1 and 10 with a greater chance of being around 5
 int RandomStateS();
+
+void Round();
+
+void ShowMessage(std::string message, int color);
