@@ -20,7 +20,7 @@ public:
 #pragma region Metode
 
 	//Throws a rand between 1 and 4 to know what action it will do
-	void Choix(Monster& enemy);
+	void Choix(Monster& enemy, int priority);
 
 	//Displays the number of rounds completed
 	void Round();
@@ -73,10 +73,10 @@ private:
 	void resetADTemp();
 
 	//The monster attacks
-	void Attack(Monster& enemy);
+	void Attack(Monster& enemy, int priority);
 
 	//The monster rages and attacks harder
-	void Rage(Monster& enemy);
+	void Rage(Monster& enemy, int priority);
 
 	//The monster defends itself
 	void Pary();

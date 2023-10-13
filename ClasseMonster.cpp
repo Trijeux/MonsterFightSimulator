@@ -16,7 +16,7 @@ Monster::~Monster()
 #pragma endregion
 
 #pragma region Metode Public
-void Monster::Choix(Monster& enemy)
+void Monster::Choix(Monster& enemy, int priority)
 {
 	int choix;
 
@@ -30,20 +30,19 @@ void Monster::Choix(Monster& enemy)
 	if (choix == 1)
 	{
 		std::cout << "Attack" << std::endl;
-		Attack(enemy);
-		return;
+		Attack(enemy, priority);
 	}
 	if (choix == 2)
 	{
 		std::cout << "Rage" << std::endl;
-		Rage(enemy);
-		return;
+		Rage(enemy, priority);
+
 	}
 	if (choix == 3)
 	{
 		std::cout << "Pary" << std::endl;
 		Pary();
-		return;
+
 	}
 	if (choix == 4)
 	{
@@ -131,12 +130,19 @@ void Monster::giveHP()
 	//Check if life is already at max or not
 	if (HP < HPMax)
 	{
-		HP += 10;
+		int healPoint;
+		std::random_device rand;
+		std::default_random_engine e2(rand());
+		std::poisson_distribution<> nbrand(5);
+		healPoint = nbrand(e2);
+
+		HP += healPoint;
 		//Prevents you from healing more than max life
 		if (HP > HPMax)
 		{
 			HP = HPMax;
 		}
+		std::cout << "Ca fait du bien" << std::endl;
 	}
 	else
 	{
@@ -154,8 +160,9 @@ void Monster::resetADTemp()
 	ADTemp = 0;
 }
 
-void Monster::Attack(Monster& enemy)
+void Monster::Attack(Monster& enemy, int priority)
 {
+	int echec = 0;
 	//Check if the enemy's defense is not above the attack
 	if (AD + ADTemp > enemy.DP + enemy.DPTemp)
 	{
@@ -163,22 +170,48 @@ void Monster::Attack(Monster& enemy)
 		domage = AD + ADTemp - enemy.DP + enemy.DPTemp;
 		/*std::cout << nameMonster() << AD << " " << enemy.nameMonster() << enemy.DP << std::endl;*/
 		enemy.takeDomage(domage);
+		echec = 1;
 	}
-	else
+	if (ADTemp <= 0)
 	{
-		std::cout << enemy.nameMonster() << ": Seulement ? Tu es faible" << std::endl;
+		std::cout << "Prend ca" << std::endl;
+	}
+	if (ADTemp > 0)
+	{
+		std::cout << "Tu vas Mourire" << std::endl;
+	}
+	if (echec == 0 && S > enemy.S || priority == 1)
+	{
+		std::cout << "\x1B[31m" << enemy.nameMonster() << "\x1B[0m" << ": Seulement ? Tu es faible" << std::endl;
+	}
+	if (echec == 0 && enemy.S > S || priority == 2)
+	{
+		std::cout << "\x1B[34m" << enemy.nameMonster() << "\x1B[0m" << ": Seulement ? Tu es faible" << std::endl;
 	}
 }
 
-void Monster::Rage(Monster& enemy)
+void Monster::Rage(Monster& enemy, int priority)
 {
-	ADTemp += 10;
-	Attack(enemy);
+	int ragePoint;
+	std::random_device rand;
+	std::default_random_engine e2(rand());
+	std::poisson_distribution<> nbrand(5);;
+	ragePoint = nbrand(e2);
+
+	ADTemp += ragePoint;
+	Attack(enemy, priority);
 }
 
 void Monster::Pary()
 {
-	DPTemp += 10;
+	int paryPoint;
+	std::random_device rand;
+	std::default_random_engine e2(rand());
+	std::poisson_distribution<> nbrand(5);;
+	paryPoint = nbrand(e2);
+
+	DPTemp += paryPoint;
+	std::cout << "essaie de me toucher si tu peux" << std::endl;
 }
 
 void Monster::AutoHeal()
