@@ -10,6 +10,7 @@ int main()
 	bool resteConsoleForNewGame = false;
 
 	std::cout << "Bonjour, bienvenu dans Monster Fight Simulateur" << std::endl;
+	std::cout << "Le but c'est que vous ch";
 
 	//Game
 	do
@@ -105,7 +106,6 @@ int main()
 		}
 		else
 		{
-			std::cout << "Ok c'est repartie" << std::endl;
 			resteConsoleForNewGame = true;
 		}
 #pragma endregion
