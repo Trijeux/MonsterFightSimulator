@@ -2,24 +2,31 @@
 #include <iostream>
 #include <random>
 
+#pragma region Constructor
+
+
 Monster::Monster(int _healthPoints, int _attackDamage, int _defensePoints, int _speed, Race _monsterRace) : HP(_healthPoints), AD(_attackDamage), DP(_defensePoints), S(_speed), monsterRace(_monsterRace) {}
 
 Monster::Monster(int _attackDamageTemp, int _defensePointTemp, int _nbRound) : ADTemp(_attackDamageTemp), DPTemp(_defensePointTemp), nbRound(_nbRound) {};
 
 Monster::~Monster()
 {
-	std::cout << "Le monster est detruite" << std::endl;
+	//std::cout << "Le monster est detruite" << std::endl;
 }
+#pragma endregion
 
+#pragma region Metode Public
 void Monster::Choix(Monster& enemy)
 {
 	int choix;
+
+	//Choose a number in 1 and 4 for the action performed by the monster
 	std::random_device rand;
 	std::default_random_engine e2(rand());
 	std::uniform_int_distribution<> nbrand(1, 4);
 	choix = nbrand(e2);
-	/*std::cout << "Choix : " << choix << std::endl;*/
 
+	//Monster choices
 	if (choix == 1)
 	{
 		std::cout << "Attack" << std::endl;
@@ -45,7 +52,6 @@ void Monster::Choix(Monster& enemy)
 	}
 }
 
-
 void Monster::Round()
 {
 	nbRound += 1;
@@ -64,7 +70,43 @@ void Monster::Statemonster2()
 	std::cout << "Nom :" << "\x1B[31m" << monsterName << "\x1B[0m" << " / Attack :" << AD + ADTemp << " / Defense :" << DP + DPTemp << " / speed :" << S << " / Vie :" << HP << std::endl;
 }
 
+void Monster::EndOfRound(Monster& enemy1, Monster& enemy2)
+{
+	//See if monster 1 has temporary defense or temporary attack
+	if (enemy1.DPTemp > 0 || enemy1.ADTemp > 0)
+	{
+		enemy1.resetDPTemp();
+		enemy1.resetADTemp();
+	}
 
+	//See if monster 2 has temporary defense or temporary attack
+	if (enemy2.DPTemp > 0 || enemy2.ADTemp > 0)
+	{
+		enemy2.resetDPTemp();
+		enemy2.resetADTemp();
+	}
+}
+
+int Monster::DeadOrNot(Monster& enemy1, Monster& enemy2)
+{
+	//See if monster 1 is dead
+	if (enemy1.HP <= 0)
+	{
+		std::cout << "\x1B[34m" << enemy1.nameMonster() << "\x1B[0m" << " est mort" << std::endl;
+		std::cout << "\x1B[31m" << enemy2.nameMonster() << "\x1B[0m" << " a gagner" << std::endl;
+		return false;
+	}
+	//See if monster 2 is dead
+	if (enemy2.HP <= 0)
+	{
+		std::cout << "\x1B[31m" << enemy2.nameMonster() << "\x1B[0m" << " est mort" << std::endl;
+		std::cout << "\x1B[34m" << enemy1.nameMonster() << "\x1B[0m" << " a gagner" << std::endl;
+		return false;
+	}
+}
+#pragma endregion
+
+#pragma region Metode Private
 std::string Monster::nameMonster()
 {
 	switch (this->monsterRace) {
@@ -86,9 +128,11 @@ void Monster::takeDomage(int domage)
 
 void Monster::giveHP()
 {
+	//Check if life is already at max or not
 	if (HP < HPMax)
 	{
 		HP += 10;
+		//Prevents you from healing more than max life
 		if (HP > HPMax)
 		{
 			HP = HPMax;
@@ -112,6 +156,7 @@ void Monster::resetADTemp()
 
 void Monster::Attack(Monster& enemy)
 {
+	//Check if the enemy's defense is not above the attack
 	if (AD + ADTemp > enemy.DP + enemy.DPTemp)
 	{
 		int domage;
@@ -140,33 +185,16 @@ void Monster::AutoHeal()
 {
 	giveHP();
 }
+#pragma endregion
 
-void Monster::EndOfRound(Monster& enemy1, Monster& enemy2)
-{
-	if (enemy1.DPTemp > 0 || enemy1.ADTemp > 0)
-	{
-		enemy1.resetDPTemp();
-		enemy1.resetADTemp();
-	}
-	if (enemy2.DPTemp > 0 || enemy2.ADTemp > 0)
-	{
-		enemy2.resetDPTemp();
-		enemy2.resetADTemp();
-	}
-}
 
-int Monster::DeadOrNot(Monster& enemy1, Monster& enemy2)
-{
-	if (enemy1.HP <= 0)
-	{
-		std::cout << "\x1B[34m" << enemy1.nameMonster() << "\x1B[0m" << " est mort" << std::endl;
-		std::cout << "\x1B[31m" << enemy2.nameMonster() << "\x1B[0m" << " a gagner" << std::endl;
-		return false;
-	}
-	if (enemy2.HP <= 0)
-	{
-		std::cout << "\x1B[31m" << enemy2.nameMonster() << "\x1B[0m" << " est mort" << std::endl;
-		std::cout << "\x1B[34m" << enemy1.nameMonster() << "\x1B[0m" << " a gagner" << std::endl;
-		return false;
-	}
-}
+
+
+
+
+
+
+
+
+
+

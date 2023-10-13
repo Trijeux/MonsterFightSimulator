@@ -1,41 +1,46 @@
 #include <iostream>
 #include <random>
 #include "ClasseMonster.h"
+#include "MonsterFightFonction.h"
 
 int main()
 {
+
 	bool gameContinue = true;
+
 	std::cout << "Bonjour, bienvenu dans Monster Fight Simulateur" << std::endl;
+
+	//Game
 	do
 	{
+#pragma region variable local Game
+		int priority;
+		bool EndBattle = true;
 		char playerInputContinue;
-		int joueurChoise1;
-		int joueurChoise2;
-		std::cout << "Veuillez choisire la Race du premier monstre Orc(0), Troll(1) ou Goblin(2) :" << std::endl;
-		std::cin >> joueurChoise1;
-		std::cout << "ET le deuxieme Orc(0), Troll(1) ou Goblin(2) :";
-		std::cin >> joueurChoise2;
+#pragma endregion
+
+#pragma region Choix Race
+		int joueurChoise1 = ChoiseRaceMonster1();
+		int joueurChoise2 = ChoiseRaceMonster2();
+#pragma endregion
+
 		system("cls");
 
+#pragma region Monster
 		Monster monster1(100, 30, 20, 10, Race(joueurChoise1));
 		Monster monster2(100, 30, 20, 10, Race(joueurChoise2));
 		Monster Rounder(0, 0, 0);
+#pragma endregion
 
-		//monster1.Attack(monster2);
-		//monster2.Attack(monster1);
-
-		bool EndBattle = true;
-		int priority;
+#pragma region Battle
+		// Battle
 		do
 		{
 			std::cout << "---------------------" << std::endl;
 			Rounder.Round();
 			if (monster1.getS() == monster2.getS())
 			{
-				std::random_device rand;
-				std::default_random_engine e2(rand());
-				std::uniform_int_distribution<> nbrand(1, 2);
-				priority = nbrand(e2);
+				priority = randpriority();
 			}
 			if (monster1.getS() > monster2.getS() || priority == 1)
 			{
@@ -59,22 +64,25 @@ int main()
 					monster1.Choix(monster2);
 				}
 			}
-			/*	std::cout << "Apres action avant reset" << std::endl;
-		monster1.State();
-		std::cout << "Apres action avant reset" << std::endl;
-		monster2.State();*/
+
+
 			Rounder.EndOfRound(monster1, monster2);
 			if (EndBattle)
 			{
 				EndBattle = Rounder.DeadOrNot(monster1, monster2);
 			}
 		} while (EndBattle);
+#pragma endregion
+
+#pragma region EndGame
 		std::cout << "Veux tu Recomencer oui(y) ou non(n) : ";
 		std::cin >> playerInputContinue;
+
 		if (playerInputContinue == 'n')
 		{
 			gameContinue = false;
 		}
+#pragma endregion
 	}
 	while (gameContinue);
 }

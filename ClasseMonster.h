@@ -11,31 +11,39 @@ enum Race
 class Monster
 {
 public:
-	//Constructor
+#pragma region Constuctor
 	Monster(int _healthPoints, int _attackDamage, int _defensePoints, int _speed, Race _monsterRace);
 	Monster(int _attackDamageTemp, int _defensePointTemp, int _nbRound);
 	~Monster();
+#pragma endregion
 
-	//Metode
+#pragma region Metode
+
+	//Throws a rand between 1 and 4 to know what action it will do
 	void Choix(Monster& enemy);
+
+	//Displays the number of rounds completed
 	void Round();
+
+	//Shows the stats of monster 1
 	void Statemonster1();
+
+	//Shows the stats of monster 2
 	void Statemonster2();
-	void Attack(Monster& enemy);
-	void Rage(Monster& enemy);
-	void Pary();
-	void AutoHeal();
+
+	//Complete rounds
 	void EndOfRound(Monster& enemy1, Monster& enemy2);
+
+	//Check if one of the two monsters is dead
 	int DeadOrNot(Monster& enemy1, Monster& enemy2);
 
-	/*int getHP() { return HP; };
-	int getAD() { return AD; };
-	int getDP() { return DP; };*/
+	//Gives the value of speed
 	int getS() { return S; };
+#pragma endregion
 
 private:
 
-	//Propryety
+#pragma region Propryety
 	int HP;
 	int AD;
 	int DP;
@@ -45,13 +53,39 @@ private:
 	int HPMax = 100;
 	int nbRound = 0;
 	Race monsterRace;
+#pragma endregion
 
-	//Metode
+#pragma region Metode
+
+	//Shows the monster in letters
 	std::string nameMonster();
+
+	//Remove hp
 	void takeDomage(int domage);
+
+	//Gives hp
 	void giveHP();
+
+	//Reset temporary defense
 	void resetDPTemp();
+
+	//Reset temporary attack
 	void resetADTemp();
+
+	//The monster attacks
+	void Attack(Monster& enemy);
+
+	//The monster rages and attacks harder
+	void Rage(Monster& enemy);
+
+	//The monster defends itself
+	void Pary();
+
+	//The monster heals itself
+	void AutoHeal();
+#pragma endregion
+
+
 
 
 
