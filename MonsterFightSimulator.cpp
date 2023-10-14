@@ -172,19 +172,31 @@ int main()
 		system("cls");
 
 
-
+		bool validInput = true;
 		std::cout << "Veux-tu Recommencer oui(y) ou non(n) : ";
 		std::cin >> playerInputContinue;
 
-		//Checks if the player wants to play again
-		if (playerInputContinue == 'n')
+		//Check if player input is correct
+		do
 		{
-			gameContinue = false;
+			//Checks if the player wants to play again
+			if (playerInputContinue == 'n')
+			{
+				gameContinue = false;
+				validInput = true;
+			}
+			if(playerInputContinue == 'y')
+			{
+				resetConsoleForNewGame = true;
+				validInput = true;
+			}
+			else
+			{
+				std::cout << "Votre entre est incorect";
+				validInput = false;
+			}
 		}
-		else
-		{
-			resetConsoleForNewGame = true;
-		}
+		while (!validInput);
 
 	} while (gameContinue);
 #pragma endregion

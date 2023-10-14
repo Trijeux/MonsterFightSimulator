@@ -19,8 +19,8 @@ int ChoiceRaceMonster1(bool resetConsoleForNewGame)
 {
 #pragma region  Local Variable
 	int inputPlayer;
-	bool validInput = true;
-	bool validNumber = false;
+	bool validInput;
+	bool validNumber;
 	std::string inputString;
 #pragma endregion
 
@@ -29,7 +29,8 @@ int ChoiceRaceMonster1(bool resetConsoleForNewGame)
 	{
 		do
 		{
-
+			validInput = true;
+			validNumber = false;
 #pragma region Player choice
 			std::cout << "Veuillez choisir la race de ton monstre :" << std::endl;
 			std::cout << "Orc (" << Orc << ")" << std::endl;
@@ -84,8 +85,8 @@ int ChoiceRaceMonster2()
 {
 #pragma region  Local Variable
 	int inputPlayer;
-	bool validInput = true;
-	bool validNumber = false;
+	bool validInput;
+	bool validNumber;
 	std::string inputString;
 	bool clsExecuted = false;
 #pragma endregion
@@ -95,6 +96,9 @@ int ChoiceRaceMonster2()
 	{
 		do
 		{
+			validInput = true;
+			validNumber = false;
+
 			//Clear the console if it hasn't been done yet
 			if (!clsExecuted)
 			{
