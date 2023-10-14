@@ -173,26 +173,28 @@ int main()
 
 
 		bool validInput = true;
-		std::cout << "Veux-tu Recommencer oui(y) ou non(n) : ";
-		std::cin >> playerInputContinue;
 
 		//Check if player input is correct
 		do
 		{
+
+			std::cout << "Veux-tu Recommencer oui(y) ou non(n) : ";
+			std::cin >> playerInputContinue;
+
 			//Checks if the player wants to play again
-			if (playerInputContinue == 'n')
-			{
-				gameContinue = false;
-				validInput = true;
-			}
-			if(playerInputContinue == 'y')
+			if (playerInputContinue == 'y')
 			{
 				resetConsoleForNewGame = true;
 				validInput = true;
 			}
+			else if (playerInputContinue == 'n')
+			{
+				gameContinue = false;
+				validInput = true;
+			}
 			else
 			{
-				std::cout << "Votre entre est incorect";
+				std::cout << "Votre entre est incorect" << std::endl;
 				validInput = false;
 			}
 		}
