@@ -186,7 +186,7 @@ void Round(bool startBattle)
 	else
 	{
 		nbRound += 1;
-		std::cout << "Round : " << nbRound << std::endl;
+		std::cout << nbRound;
 	}
 }
 

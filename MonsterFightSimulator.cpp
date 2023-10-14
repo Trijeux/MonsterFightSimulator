@@ -82,7 +82,9 @@ int main()
 #pragma region Battle
 		do
 		{
+			std::cout << "Round : ";
 			Round();
+			std::cout << std::endl;
 			std::cout << std::endl;
 
 			//Causes that each round the monster attacks first each turn except the first turn
@@ -159,7 +161,12 @@ int main()
 #pragma endregion
 
 		//Say who to win
+		std::cout << "Le combat a dure :";
+		Round();
+		std::cout << " de round";
+		std::cout << std::endl;
 		monster1.EndGameMessage();
+		std::cout << std::endl;
 		monster2.EndGameMessage();
 		system("Pause");
 		system("cls");

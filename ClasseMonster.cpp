@@ -25,24 +25,24 @@ void Monster::Choice(Monster& enemy)
 
 	if (choice == 1)
 	{
-		std::cout << "Attaque" << std::endl;
+		std::cout << "Action : Attaque" << std::endl;
 		attack(enemy);
 	}
 	if (choice == 2)
 	{
-		std::cout << "Rage" << std::endl;
+		std::cout << "Action : Rage" << std::endl;
 		rage(enemy);
 
 	}
 	if (choice == 3)
 	{
-		std::cout << "Parer" << std::endl;
+		std::cout << "Action : Parer" << std::endl;
 		parry();
 
 	}
 	if (choice == 4)
 	{
-		std::cout << "Soin" << std::endl;
+		std::cout << "Action : Soin" << std::endl;
 		heal();
 	}
 }
@@ -159,16 +159,16 @@ void Monster::attack(Monster& enemy)
 	{
 		showMessageMonster(nameMonster());
 		std::cout << ": prend ca" << std::endl;
-		std::cout << damage << " de vie en moins a ";
-		showMessageMonster(enemy.nameMonster());
+		std::cout << "-" << damage << " de vie a ";
+		enemy.showMessageMonster(enemy.nameMonster());
 		std::cout << std::endl;
 	}
 	if (ADBonus > 0)
 	{
 		showMessageMonster(nameMonster());
 		std::cout << ": tu vas mourir" << std::endl;
-		std::cout << damage << " de vie en moins a ";
-		showMessageMonster(enemy.nameMonster());
+		std::cout << "-" << damage << " de vie a ";
+		enemy.showMessageMonster(enemy.nameMonster());
 		std::cout << std::endl;
 	}
 
@@ -176,7 +176,7 @@ void Monster::attack(Monster& enemy)
 	if (miss)
 	{
 		std::cout << "Echec de l'attaque" << std::endl;
-		showMessageMonster(enemy.nameMonster());
+		enemy.showMessageMonster(enemy.nameMonster());
 		std::cout << ": seulement ? Tu es faible" << std::endl;
 	}
 }
