@@ -7,112 +7,144 @@
 int main()
 {
 	bool gameContinue = true;
-	bool resteConsoleForNewGame = false;
+	bool resetConsoleForNewGame = false;
 
 	std::cout << "Bonjour, bienvenu dans Monster Fight Simulateur" << std::endl;
 	std::cout << std::endl;
-	std::cout << "Le but c'est que vous choisisez votre";
-	ShowMessage(" monstre ", 11) ;
+	std::cout << "Le but est que vous choisissiez votre";
+	ShowMessage(" monstre ", 11);
 	std::cout << "et votre";
 	ShowMessage(" adversaire ", 12);
 	std::cout << std::endl;
 	std::cout << std::endl;
-	std::cout << "Vous allez vous affronter (tout est automatise) et voir qui vas gagner" << std::endl;
+	std::cout << "Vous allez vous affronter (tout est automatique) et voir qui vas gagner" << std::endl;
 	std::cout << std::endl;
-	
+
 	//Game
 	do
 	{
-#pragma region variable local Game
+#pragma region Variable Local Game
 		int priority = 0;
-		Round(true);
-		bool EndBattle = true;
+		bool endBattle = true;
+		bool alteration = false;
+		int alterationenemy = 0;
 		char playerInputContinue;
 #pragma endregion
 
-#pragma region Choix Race
-		int joueurChoise1 = ChoiseRaceMonster1(resteConsoleForNewGame);
-		int joueurChoise2 = ChoiseRaceMonster2();
+		Round(true);
+
+#pragma region Choice Race
+		int playerChoice1 = ChoiceRaceMonster1(resetConsoleForNewGame);
+		int playerChoice2 = ChoiceRaceMonster2();
 #pragma endregion
 
 #pragma region Creat Stat Monster
-		int statADMonster1 = RandomStateAD();
+		int statADMonster1 = RandomStatAD();
 
-		int statDPMonster1 = RandomStateDP();
+		int statDPMonster1 = RandomStatDP();
 
-		int statSMonster1 = RandomStateS();
+		int statSMonster1 = RandomStatS();
 
-		int statADMonster2 = RandomStateAD();
+		int statADMonster2 = RandomStatAD();
 
-		int statDPMonster2 = RandomStateDP();
+		int statDPMonster2 = RandomStatDP();
 
-		int statSMonster2 = RandomStateS();
+		int statSMonster2 = RandomStatS();
 #pragma endregion
 
 		system("cls");
 
 #pragma region Monster
-		Monster monster1(100, statADMonster1, statDPMonster1, statSMonster1, Race(joueurChoise1), 11);
-		Monster monster2(100, statADMonster2, statDPMonster2, statSMonster2, Race(joueurChoise2), 12);
+		Monster monster1(100, statADMonster1, statDPMonster1, statSMonster1, Race(playerChoice1), 11);
+		Monster monster2(100, statADMonster2, statDPMonster2, statSMonster2, Race(playerChoice2), 12);
 
 #pragma endregion
 
+
+		if (monster1.getS() == monster2.getS())
+		{
+			priority = RandPriority();
+		}
+		
+
+		if (monster1.getS() > monster2.getS())
+		{
+			priority = 1;
+		}
+
+		if (monster1.getS() < monster2.getS())
+		{
+			priority = 2;
+		}
+
 #pragma region Battle
-		// Battle
 		do
 		{
 			Round();
 			std::cout << std::endl;
-			if (monster1.getS() == monster2.getS())
+
+			if (alteration)
 			{
-				priority = randpriority();
+				if (alterationenemy == 1)
+				{
+					priority = 1;
+				}
+				if (alterationenemy == 2)
+				{
+					priority = 2;
+				}
 			}
 
-			if (EndBattle && (monster1.getS() > monster2.getS() || priority == 1))
+			else
 			{
-				monster1.Statemonster();
-				monster1.Choix(monster2);
+				alteration = true;
+			}
+
+			if (endBattle && priority == 1)
+			{
+				monster1.StatMonster();
+				monster1.Choice(monster2);
 				std::cout << std::endl;
-				EndBattle = monster2.DeadOrNot();
-				if (EndBattle)
+				endBattle = monster2.DeadOrNot();
+				if (endBattle)
 				{
-					monster2.Statemonster();
-					monster2.Choix(monster1);
+					monster2.StatMonster();
+					monster2.Choice(monster1);
 					std::cout << std::endl;
-					EndBattle = monster1.DeadOrNot();
+					endBattle = monster1.DeadOrNot();
 				}
-				
+				alterationenemy = 2;
 			}
 
 
-			if (EndBattle && (monster1.getS() < monster2.getS() || priority == 2))
+			if (endBattle && priority == 2)
 			{
-				monster2.Statemonster();
-				monster2.Choix(monster1);
+				monster2.StatMonster();
+				monster2.Choice(monster1);
 				std::cout << std::endl;
-				EndBattle = monster1.DeadOrNot();
-				if (EndBattle)
+				endBattle = monster1.DeadOrNot();
+				if (endBattle)
 				{
-					monster1.Statemonster();
-					monster1.Choix(monster2);
+					monster1.StatMonster();
+					monster1.Choice(monster2);
 					std::cout << std::endl;
-					EndBattle = monster2.DeadOrNot();
+					endBattle = monster2.DeadOrNot();
 				}
-				
+				alterationenemy = 1;
 			}
 
 			monster1.EndOfRound();
 			monster2.EndOfRound();
 
-			std::cout << "Fin du round." << std::endl << "State :" << std::endl;
+			std::cout << "Fin du round" << std::endl << "State :" << std::endl;
 			std::cout << std::endl;
-			monster1.Statemonster();
-			monster2.Statemonster();
+			monster1.StatMonster();
+			monster2.StatMonster();
 
 			system("Pause");
 			system("cls");
 
-		} while (EndBattle);
+		} while (endBattle);
 		monster1.EndGameMessage();
 		monster2.EndGameMessage();
 		system("Pause");
@@ -120,7 +152,7 @@ int main()
 #pragma endregion
 
 #pragma region EndGame
-		std::cout << "Veux tu Recomencer oui(y) ou non(n) : ";
+		std::cout << "Veux-tu Recommencer oui(y) ou non(n) : ";
 		std::cin >> playerInputContinue;
 
 		if (playerInputContinue == 'n')
@@ -129,7 +161,7 @@ int main()
 		}
 		else
 		{
-			resteConsoleForNewGame = true;
+			resetConsoleForNewGame = true;
 		}
 #pragma endregion
 	} while (gameContinue);

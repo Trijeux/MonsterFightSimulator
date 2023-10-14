@@ -19,29 +19,25 @@ class Monster
 {
 
 public:
+
 #pragma region Constuctor
 	Monster(int _healthPoints, int _attackDamage, int _defensePoints, int _speed, Race _monsterRace, int _color);
-	Monster(int _attackDamageTemp, int _defensePointTemp, int _nbRound);
 	~Monster();
 #pragma endregion
 
-#pragma region Metode
+#pragma region Method
 
-	//Throws a rand between 1 and 4 to know what action it will do
-	void Choix(Monster& enemy);
+	void Choice(Monster& enemy);
 
-	//Shows the stats of monster 
-	void Statemonster();
+	void StatMonster();
 
 	//Complete rounds
 	void EndOfRound();
 
-	//Check if one of the two monsters is dead
 	void EndGameMessage();
 
 	bool DeadOrNot();
 
-	//Gives the value of speed
 	int getS() { return S; };
 #pragma endregion
 
@@ -52,43 +48,34 @@ private:
 	int AD;
 	int DP;
 	int S;
-	int DPTemp = 0;
-	int ADTemp = 0;
+	int DPBonus = 0;
+	int ADBonus = 0;
 	int HPMax = 100;
 	Race monsterRace;
 	int color;
 #pragma endregion
 
-#pragma region Metode
+#pragma region Method
 
-	//Shows the monster in letters
 	std::string nameMonster();
-
-	//Remove hp
+	
 	void takeDomage(int domage);
-
-	//Gives hp
+	
 	void giveHP();
+	
+	void resetDPBonus();
+	
+	void resetADBonus();
 
-	//Reset temporary defense
-	void resetDPTemp();
+	void attack(Monster& enemy);
 
-	//Reset temporary attack
-	void resetADTemp();
+	void rage(Monster& enemy);
+	
+	void parry();
 
-	//The monster attacks
-	void Attack(Monster& enemy);
+	void autoHeal();
 
-	//The monster rages and attacks harder
-	void Rage(Monster& enemy);
-
-	//The monster defends itself
-	void Pary();
-
-	//The monster heals itself
-	void AutoHeal();
-
-	void ShowMessageMonster(std::string message);
+	void showMessageMonster(std::string message);
 #pragma endregion
 
 };

@@ -12,71 +12,66 @@ Monster::~Monster()
 }
 #pragma endregion
 
-#pragma region Metode Public
-void Monster::Choix(Monster& enemy)
+#pragma region Method Public
+void Monster::Choice(Monster& enemy)
 {
-	int choix;
-
-	//Choose a number in 1 and 4 for the action performed by the monster
 	std::random_device rand;
 	std::default_random_engine e2(rand());
-	std::uniform_int_distribution<> nbrand(1, 4);
-	choix = nbrand(e2);
+	std::uniform_int_distribution<> nbRand(1, 4);
+	int choice = nbRand(e2);
 
-	//Monster choices
-	if (choix == 1)
-	{
-		std::cout << "Attack" << std::endl;
-		Attack(enemy);
-	}
-	if (choix == 2)
-	{
-		std::cout << "Rage" << std::endl;
-		Rage(enemy);
 
-	}
-	if (choix == 3)
+	if (choice == 1)
 	{
-		std::cout << "Pary" << std::endl;
-		Pary();
+		std::cout << "Attaque" << std::endl;
+		attack(enemy);
+	}
+	if (choice == 2)
+	{
+		std::cout << "rage" << std::endl;
+		rage(enemy);
 
 	}
-	if (choix == 4)
+	if (choice == 3)
 	{
-		std::cout << "Heal" << std::endl;
-		AutoHeal();
+		std::cout << "Parer" << std::endl;
+		parry();
+
+	}
+	if (choice == 4)
+	{
+		std::cout << "Soin" << std::endl;
+		autoHeal();
 	}
 }
 
-void Monster::Statemonster()
+void Monster::StatMonster()
 {
-	std::cout << "Nom :";
-	ShowMessageMonster(nameMonster());
-	std::cout << " / Attack :" << AD + ADTemp << " / Defense :" << DP + DPTemp << " / speed :" << S << " / Vie :" << HP << std::endl;
+	std::cout << "Race :";
+	showMessageMonster(nameMonster());
+	std::cout << " / Attaque :" << AD + ADBonus << " / Defense :" << DP + DPBonus << " / Vitesse :" << S << " / Vie :" << HP << std::endl;
 }
 
 void Monster::EndOfRound()
 {
-	//See if monster has temporary defense or temporary attack
-	if (DPTemp > 0 || ADTemp > 0)
+	if (DPBonus > 0 || ADBonus > 0)
 	{
-		resetDPTemp();
-		resetADTemp();
+		resetDPBonus();
+		resetADBonus();
 	}
 }
 
 void Monster::EndGameMessage()
 {
-	//See if monster is dead
 	if (HP <= 0)
 	{
-		ShowMessageMonster(nameMonster());
+		showMessageMonster(nameMonster());
 		std::cout << " a perdu" << std::endl;
 	}
-	//See if monster is alive
+	
 	if (HP > 0)
 	{
-		ShowMessageMonster(nameMonster());
+		showMessageMonster(nameMonster());
 		std::cout << " a gagne" << std::endl;
 	}
 }
@@ -92,7 +87,7 @@ bool Monster::DeadOrNot()
 }
 #pragma endregion
 
-#pragma region Metode Private
+#pragma region Method Private
 std::string Monster::nameMonster()
 {
 	switch (this->monsterRace) {
@@ -103,21 +98,21 @@ std::string Monster::nameMonster()
 	case Goblin:
 		return "Goblin";
 	case Centaur:
-		return "Centaur";
+		return "Centaure";
 	case Dullahan:
 		return "Dullahan";
 	case Ogre:
 		return "Ogre";
 	case Werewolf:
-		return "Werewolf";
+		return "Loup-Garou";
 	case Elf:
 		return "Elf";
 	case Harpy:
 		return "Harpy";
 	case Salamander:
-		return "Salamander";
+		return "Salamandre";
 	default:
-		return "Invalid";
+		return "Invalide";
 	}
 }
 
@@ -128,22 +123,21 @@ void Monster::takeDomage(int domage)
 
 void Monster::giveHP()
 {
-	//Check if life is already at max or not
+	
 	if (HP < HPMax)
 	{
-		int healPoint;
 		std::random_device rand;
 		std::default_random_engine e2(rand());
-		std::poisson_distribution<> nbrand(5);
-		healPoint = nbrand(e2);
+		std::poisson_distribution<> nbRand(5);
+		int healPoint = nbRand(e2);
 
 		HP += healPoint;
-		//Prevents you from healing more than max life
+		
 		if (HP > HPMax)
 		{
 			HP = HPMax;
 		}
-		ShowMessageMonster(nameMonster());
+		showMessageMonster(nameMonster());
 		std::cout << ": ca fait du bien" << std::endl;
 	}
 	else
@@ -152,75 +146,72 @@ void Monster::giveHP()
 	}
 }
 
-void Monster::resetDPTemp()
+void Monster::resetDPBonus()
 {
-	DPTemp = 0;
+	DPBonus = 0;
 }
 
-void Monster::resetADTemp()
+void Monster::resetADBonus()
 {
-	ADTemp = 0;
+	ADBonus = 0;
 }
 
-void Monster::Attack(Monster& enemy)
+void Monster::attack(Monster& enemy)
 {
-	int echec = 0;
-	//Check if the enemy's defense is not above the attack
-	if (AD + ADTemp > enemy.DP + enemy.DPTemp)
+	bool miss = true;
+	
+	if (AD + ADBonus > enemy.DP + enemy.DPBonus)
 	{
-		int domage;
-		domage = AD + ADTemp - enemy.DP + enemy.DPTemp;
+		int domage = AD + ADBonus - enemy.DP + enemy.DPBonus;
 		enemy.takeDomage(domage);
-		echec = 1;
+		miss = false;
 	}
-	if (ADTemp <= 0)
+	if (ADBonus <= 0)
 	{
-		ShowMessageMonster(nameMonster());
+		showMessageMonster(nameMonster());
 		std::cout << ": prend ca" << std::endl;
 	}
-	if (ADTemp > 0)
+	if (ADBonus > 0)
 	{
-		ShowMessageMonster(nameMonster());
-		std::cout << ": tu vas Mourire" << std::endl;
+		showMessageMonster(nameMonster());
+		std::cout << ": tu vas mourir" << std::endl;
 	}
-	if (echec == 0)
+	if (miss)
 	{
-		ShowMessageMonster(enemy.nameMonster());
+		showMessageMonster(enemy.nameMonster());
 		std::cout << ": seulement ? Tu es faible" << std::endl;
 	}
 }
 
-void Monster::Rage(Monster& enemy)
+void Monster::rage(Monster& enemy)
 {
-	int ragePoint;
 	std::random_device rand;
 	std::default_random_engine e2(rand());
-	std::poisson_distribution<> nbrand(5);;
-	ragePoint = nbrand(e2);
+	std::poisson_distribution<> nbRand(5);;
+	int ragePoint = nbRand(e2);
 
-	ADTemp += ragePoint;
-	Attack(enemy);
+	ADBonus += ragePoint;
+	attack(enemy);
 }
 
-void Monster::Pary()
+void Monster::parry()
 {
-	int paryPoint;
 	std::random_device rand;
 	std::default_random_engine e2(rand());
-	std::poisson_distribution<> nbrand(5);;
-	paryPoint = nbrand(e2);
+	std::poisson_distribution<> nbRand(5);;
+	int parryPoint = nbRand(e2);
 
-	DPTemp += paryPoint;
-	ShowMessageMonster(nameMonster());
+	DPBonus += parryPoint;
+	showMessageMonster(nameMonster());
 	std::cout << ": essaie de me toucher si tu peux" << std::endl;
 }
 
-void Monster::AutoHeal()
+void Monster::autoHeal()
 {
 	giveHP();
 }
 
-void Monster::ShowMessageMonster(std::string message)
+void Monster::showMessageMonster(std::string message)
 {
 	HANDLE terminal = GetStdHandle(STD_OUTPUT_HANDLE);
 

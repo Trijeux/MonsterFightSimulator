@@ -5,61 +5,61 @@
 #include <windows.h>
 #include "ClasseMonster.h"
 
-int randpriority()
+int RandPriority()
 {
 	std::random_device rand;
 	std::default_random_engine e2(rand());
-	std::uniform_int_distribution<> nbrand(1, 2);
-	return nbrand(e2);
+	std::uniform_int_distribution<> nbRand(1, 2);
+	return nbRand(e2);
 }
 
-int ChoiseRaceMonster1(bool resteConsoleForNewGame)
+int ChoiceRaceMonster1(bool resetConsoleForNewGame)
 {
 	int inputPlayer;
 	bool validInput = true;
 	bool validNumber = false;
 	std::string inputString;
 
-	//Checks if the user enters valid data
+	
 	do
 	{
 		do
 		{
 			validInput = true;
 			validNumber = false;
-			std::cout << "Veuillez choisire la Race de ton monstre :" << std::endl;
+			std::cout << "Veuillez choisir la race de ton monstre :" << std::endl;
 			std::cout << "Orc (" << Orc << ")" << std::endl;
 			std::cout << "Troll (" << Troll << ")" << std::endl;
 			std::cout << "Goblin (" << Goblin << ")" << std::endl;
-			std::cout << "Centaur (" << Centaur << ")" << std::endl;
+			std::cout << "Centaure (" << Centaur << ")" << std::endl;
 			std::cout << "Dullahan (" << Dullahan << ")" << std::endl;
 			std::cout << "Ogre (" << Ogre << ")" << std::endl;
-			std::cout << "Werewolf (" << Werewolf << ")" << std::endl;
+			std::cout << "Loup-Garou (" << Werewolf << ")" << std::endl;
 			std::cout << "Elf (" << Elf << ")" << std::endl;
 			std::cout << "Harpy (" << Harpy << ")" << std::endl;
-			std::cout << "Salamander (" << Salamander << ")" << std::endl;
+			std::cout << "Salamandre (" << Salamander << ")" << std::endl;
 			std::getline(std::cin, inputString);
 
 
-			// Check if it's a number or not
+			
 			if (inputString.length() == 0 || !std::all_of(inputString.begin(), inputString.end(), ::isdigit))
 			{
 				std::cout << inputString << " n'est pas un nombre" << std::endl;
-				if (resteConsoleForNewGame)
+				if (resetConsoleForNewGame)
 				{
 					system("cls");
-					resteConsoleForNewGame = false;
+					resetConsoleForNewGame = false;
 				}
 				validInput = false;
 			}
 			if (validInput)
 			{
-				// Checks if number is between 1 and array size
+				
 				inputPlayer = std::stoi(inputString);
 				if (inputPlayer > Race(9) || inputPlayer < 0)
 				{
 					validNumber = true;
-					std::cout << "Ce n'est pas un chiffre entre " << Race(0) << "-" << Race(9) << std::endl;
+					std::cout << "Ce n'est pas un chiffre entre 0-9" << std::endl;
 					system("Pause");
 				}
 			}
@@ -69,7 +69,7 @@ int ChoiseRaceMonster1(bool resteConsoleForNewGame)
 	return inputPlayer;
 }
 
-int ChoiseRaceMonster2()
+int ChoiceRaceMonster2()
 {
 	int inputPlayer;
 	bool validInput = true;
@@ -77,7 +77,7 @@ int ChoiseRaceMonster2()
 	std::string inputString;
 	bool clsExecuted = false;
 
-	//Checks if the user enters valid data
+	
 	do
 	{
 		do
@@ -93,16 +93,16 @@ int ChoiseRaceMonster2()
 			std::cout << "Orc (" << Orc << ")" << std::endl;
 			std::cout << "Troll (" << Troll << ")" << std::endl;
 			std::cout << "Goblin (" << Goblin << ")" << std::endl;
-			std::cout << "Centaur (" << Centaur << ")" << std::endl;
+			std::cout << "Centaure (" << Centaur << ")" << std::endl;
 			std::cout << "Dullahan (" << Dullahan << ")" << std::endl;
 			std::cout << "Ogre (" << Ogre << ")" << std::endl;
-			std::cout << "Werewolf (" << Werewolf << ")" << std::endl;
+			std::cout << "Loup-Garou (" << Werewolf << ")" << std::endl;
 			std::cout << "Elf (" << Elf << ")" << std::endl;
 			std::cout << "Harpy (" << Harpy << ")" << std::endl;
-			std::cout << "Salamander (" << Salamander << ")" << std::endl;
+			std::cout << "Salamandre (" << Salamander << ")" << std::endl;
 			std::getline(std::cin, inputString);
 
-			// Check if it's a number or not
+			
 			if (inputString.length() == 0 || !std::all_of(inputString.begin(), inputString.end(), ::isdigit))
 			{
 				std::cout << inputString << " n'est pas un nombre" << std::endl;
@@ -110,12 +110,12 @@ int ChoiseRaceMonster2()
 			}
 			if (validInput)
 			{
-				// Checks if number is between 1 and array size
+				
 				inputPlayer = std::stoi(inputString);
 				if (inputPlayer > Race(9) || inputPlayer < 0)
 				{
 					validNumber = true;
-					std::cout << "Ce n'est pas un chiffre entre " << Race(0) << "-" << Race(9) << std::endl;
+					std::cout << "Ce n'est pas un chiffre entre 0-9" << std::endl;
 				}
 			}
 		} while (validNumber);
@@ -124,28 +124,28 @@ int ChoiseRaceMonster2()
 	return inputPlayer;
 }
 
-int RandomStateAD()
+int RandomStatAD()
 {
 	std::random_device rand;
 	std::default_random_engine e2(rand());
-	std::poisson_distribution<> nbrand(20);
-	return nbrand(e2);
+	std::poisson_distribution<> nbRand(20);
+	return nbRand(e2);
 }
 
-int RandomStateDP()
+int RandomStatDP()
 {
 	std::random_device rand;
 	std::default_random_engine e2(rand());
-	std::poisson_distribution<> nbrand(10);
-	return nbrand(e2);
+	std::poisson_distribution<> nbRand(10);
+	return nbRand(e2);
 }
 
-int RandomStateS()
+int RandomStatS()
 {
 	std::random_device rand;
 	std::default_random_engine e2(rand());
-	std::poisson_distribution<> nbrand(5);
-	return nbrand(e2);
+	std::poisson_distribution<> nbRand(5);
+	return nbRand(e2);
 }
 
 void Round(bool startBattle)
