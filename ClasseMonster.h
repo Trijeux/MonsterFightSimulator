@@ -77,6 +77,7 @@ private:
 
 	//Color Monster
 	int color;
+
 #pragma endregion
 
 #pragma region Method

@@ -1,0 +1,60 @@
+digraph MyGraph {
+
+   Choice_of_two_monsters [shape=box]
+   generation_of_random_statistics_of_monsters_except_HP [shape=box]
+   Creation_of_the_two_monsters [shape=box]
+   Check_who_is_the_fastest_monster_to_first_round [shape=diamond]
+   Randomly_choose_one_of_the_two_monsters_to_first_round [shape=box]
+   Display_Number_of_rounds [shape=box]
+   Alternate_monsters_for_the_first_action_per_round [shape=box]
+   Display_monster_stats [shape=box]
+   Choice_of_monster_action [shape=box]
+   Check_if_monster_is_dead [shape=diamond]
+   Second_Display_monster_stats [shape=box]
+   Second_Choice_of_monster_action [shape=box]
+   End_Round_and_display_monster_stats [shape=box]
+   Check_if_monster_is_dead_end_round [shape=diamond]
+   End_Battle [shape=box]
+   Display_Number_of_rounds_in_total [shape=box]
+   Show_who_won_and_lost [shape=box]
+   Redo_a_game_or_not [shape=diamond]
+   End_Game [shape=box]
+
+
+   Start_and_Rule
+   -> Choice_of_two_monsters
+   -> generation_of_random_statistics_of_monsters_except_HP
+   -> Creation_of_the_two_monsters
+   -> Check_who_is_the_fastest_monster_to_first_round
+
+   Check_who_is_the_fastest_monster_to_first_round -> Randomly_choose_one_of_the_two_monsters_to_first_round [label="If equal"]
+
+   Check_who_is_the_fastest_monster_to_first_round -> Display_Number_of_rounds [label="If not equal"]
+
+   Randomly_choose_one_of_the_two_monsters_to_first_round -> Display_Number_of_rounds
+
+   Alternate_monsters_for_the_first_action_per_round -> Display_Number_of_rounds
+
+   Display_Number_of_rounds ->
+   Display_monster_stats ->
+   Choice_of_monster_action ->
+   Check_if_monster_is_dead
+   Check_if_monster_is_dead -> Second_Display_monster_stats [label="false" fontcolor=red color=red]
+   Check_if_monster_is_dead -> End_Round_and_display_monster_stats [label="true" fontcolor=green color=green]
+   Second_Display_monster_stats
+   -> Second_Choice_of_monster_action
+   -> End_Round_and_display_monster_stats
+   -> Check_if_monster_is_dead_end_round
+
+   Check_if_monster_is_dead_end_round -> End_Battle [label="true" fontcolor=green color=green]
+   Check_if_monster_is_dead_end_round -> Alternate_monsters_for_the_first_action_per_round [label="false" fontcolor=red color=red]
+
+
+   End_Battle
+   -> Display_Number_of_rounds_in_total
+   -> Show_who_won_and_lost
+   -> Redo_a_game_or_not
+
+   Redo_a_game_or_not -> Choice_of_two_monsters [label="true" fontcolor=green color=green]
+   Redo_a_game_or_not -> End_Game [label="false" fontcolor=red color=red]
+}
