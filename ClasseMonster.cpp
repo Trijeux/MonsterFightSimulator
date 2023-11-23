@@ -201,7 +201,7 @@ void Monster::parry()
 {
 	std::random_device rand;
 	std::default_random_engine e2(rand());
-	std::poisson_distribution<> nbRand(5);;
+	std::poisson_distribution<> nbRand(5);
 
 	//Gives a number between 0 and 10 with a greater chance of being closer to 5 for the defense bonus
 	int parryPoint = nbRand(e2);
